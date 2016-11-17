@@ -1,6 +1,6 @@
 # GSA
 
-Gravitational Search Algorithm for our cursus (AI)
+Gravitational Search Algorithm for our cursus
 
 Made by Chackal, Ida, Sagna and Songfu
 
