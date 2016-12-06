@@ -25,8 +25,8 @@ friend std::istream& operator>> (std::istream& is, Solution& sol) {
 	return is;
 }
 
-const Problem& pbm() const {
-	return &_pbm;
+const Problem& Solution::pbm() const {
+	return _pbm;
 }
 
 Solution& operator=  (const Solution& sol) {
@@ -41,14 +41,14 @@ bool operator!= (const Solution& sol) const {
 	//toDo
 }
 
-void initialize() {
+void Solution::initialize() {
 	srand(time(NULL));
 	for (int i = 0; i < _solution.size(); ++i) 
 		_solution[i] = rand() % (upperLimit - lowerLimit) + lowerLimit;
  	_mass = rand() / RAND_MAX;
 }
 
-double fitness() {
+double Solution::fitness() {
 	int sum = 0;
 	for (int i = 0; i < _solution.size() / 2; ++i) {
 		sum += 100 * pow((pow(_solution[2*i], 2) - _solution[2*i+1]), 2) + pow(_solution[2*i] - 1, 2);
@@ -56,20 +56,20 @@ double fitness() {
 	_current_fitness = sum;
 }
 
-double get_fitness() {
+double Solution::get_fitness() {
 	return _current_fitness;
 }
 
-unsigned int size() const {
+unsigned int Solution::size() const {
 	return _solution.size();
 }
 
-std::vector<double>& solution() {
+std::vector<double>& Solution::solution() {
 	return &_solution;
 }
 
-double& position(const int index) { //retournera une position du tableau d_coord
+double& Solution::position(const int index) { //retournera une position du tableau d_coord
 
 }
 
-void position(const int index, const double value);
+void Solution::position(const int index, const double value);
