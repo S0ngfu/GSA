@@ -24,8 +24,8 @@ public:
 
     const Problem& pbm() const;
 
-    bool operator== (const Solution& sol) const;
-    bool operator!= (const Solution& sol) const;
+    /*bool operator== (const Solution& sol) const;
+    bool operator!= (const Solution& sol) const;*/
 
     void initialize();
     double fitness();
