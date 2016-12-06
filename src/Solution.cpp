@@ -6,20 +6,22 @@
 
 Solution::Solution(const Problem& pbm) : _pbm{pbm} {}
 
-Solution::Solution(const Solution& sol): _pbm{sol.pbm()} {
+Solution::Solution(const Solution& sol): _pbm{sol.pbm()},
+										 _current_fitness{sol.get_fitness()}
+{
 	d_coord.reserve(sol.solution().size());
 	std::vector<double>& vecSol = sol.solution();
 	for (int i = 0; i < vecSol.size(); ++i)
 		d_coord[i] = vecSol[i];
 }
 
-friend std::ostream& operator<< (std::ostream& os, const Solution& sol) {
+friend std::ostream& Solution::operator<< (std::ostream& os, const Solution& sol) {
 	//toDo
-	os<<"Le problème lié à la solution est : "<<sol.pbm()<<""<<std::endl;
+
 	return os;
 }
     
-friend std::istream& operator>> (std::istream& is, Solution& sol) {
+friend std::istream& Solution::operator>> (std::istream& is, Solution& sol) {
 	//toDo
 
 	return is;
@@ -29,22 +31,25 @@ const Problem& Solution::pbm() const {
 	return _pbm;
 }
 
-Solution& operator=  (const Solution& sol) {
+/*bool operator== (const Solution& sol) const {
 	//toDo
-}
 
-bool operator== (const Solution& sol) const {
-	//toDo
 }
 
 bool operator!= (const Solution& sol) const {
 	//toDo
-}
+}*/
 
 void Solution::initialize() {
+<<<<<<< HEAD
 	srand(time(NULL));
 	for (int i = 0; i < d_coord.size(); ++i) 
 		d_coord[i] = rand() % (upperLimit - lowerLimit) + lowerLimit;
+=======
+	srand(time(localtime));
+	for (int i = 0; i < d_coord.size(); ++i)
+		d_coord[i] = rand() % (static_cast<int>(_pbm.UpperLimit - _pbm.LowerLimit)) + _pbm.LowerLimit;
+>>>>>>> origin/master
  	_mass = rand() / RAND_MAX;
 }
 
@@ -54,24 +59,34 @@ double Solution::fitness() {
 		sum += 100 * pow((pow(d_coord[2*i], 2) - d_coord[2*i+1]), 2) + pow(d_coord[2*i] - 1, 2);
 	}
 	_current_fitness = sum;
+    return _current_fitness;
 }
 
-double Solution::get_fitness() {
+double Solution::get_fitness() const {
 	return _current_fitness;
 }
 
 unsigned int Solution::size() const {
+<<<<<<< HEAD
 	return d_coord.size();
 }
 
 std::vector<double>& Solution::solution() {
 	return &d_coord;
+=======
+	return static_cast<unsigned int>(d_coord.size());
+}
+
+std::vector<double>& Solution::solution() const{
+	return d_coord;
+>>>>>>> origin/master
 }
 
 double& Solution::position(const int index) { //retournera une position du tableau d_coord
-
+	return d_coord[index];
 }
 
+<<<<<<< HEAD
 void Solution::position(const int index, const double value);
 
 double Solution::distEucl(const Solution& sol) const
@@ -82,3 +97,8 @@ double Solution::distEucl(const Solution& sol) const
 		distance += sqrt(pow(d_coord[i] - sol.d_coord[i], 2));
 	}
 }
+=======
+void Solution::position(const int index, const double value) {
+	d_coord[index]=value;
+}
+>>>>>>> origin/master

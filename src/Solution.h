@@ -24,13 +24,12 @@ public:
 
     const Problem& pbm() const;
 
-    Solution& operator=  (const Solution& sol);
-    bool operator== (const Solution& sol) const;
-    bool operator!= (const Solution& sol) const;
+    /*bool operator== (const Solution& sol) const;
+    bool operator!= (const Solution& sol) const;*/
 
     void initialize();
     double fitness();
-    double get_fitness();
+    double get_fitness() const;
 
     unsigned int size() const;
 
