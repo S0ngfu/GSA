@@ -50,6 +50,7 @@ void Solution::initialize() {
 
 double Solution::fitness() {
 	int sum = 0;
+	//Rosenbrock
 	for (int i = 0; i < d_coord.size() / 2; ++i) 
 		sum += 100 * pow((pow(d_coord[2*i], 2) - d_coord[2*i+1]), 2) + pow(d_coord[2*i] - 1, 2);
 
