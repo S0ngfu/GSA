@@ -78,7 +78,9 @@ double& Solution::position(const int index) { //retournera une position du table
 }
 
 
-void Solution::position(const int index, const double value);
+void Solution::position(const int index, const double value) {
+    d_coord[index]=value;
+}
 
 double Solution::distEucl(const Solution& sol) const
 {
@@ -88,8 +90,3 @@ double Solution::distEucl(const Solution& sol) const
 		distance += sqrt(pow(d_coord[i] - sol.d_coord[i], 2));
 	}
 }
-
-void Solution::position(const int index, const double value) {
-	d_coord[index]=value;
-}
-
