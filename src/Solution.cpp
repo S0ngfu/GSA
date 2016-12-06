@@ -31,10 +31,6 @@ const Problem& Solution::pbm() const {
 	return _pbm;
 }
 
-Solution& operator=  (const Solution& sol) {
-	Solution(sol);
-}
-
 bool operator== (const Solution& sol) const {
 	//toDo
 }
@@ -71,7 +67,9 @@ std::vector<double>& Solution::solution() const{
 }
 
 double& Solution::position(const int index) { //retournera une position du tableau d_coord
-
+	return d_coord[index];
 }
 
-void Solution::position(const int index, const double value);
+void Solution::position(const int index, const double value) {
+	d_coord[index]=value;
+}
