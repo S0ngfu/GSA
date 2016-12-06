@@ -30,7 +30,7 @@ public:
 
     void initialize();
     double fitness();
-    double get_fitness();
+    double get_fitness() const;
 
     unsigned int size() const;
 
