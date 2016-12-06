@@ -41,15 +41,14 @@ bool operator!= (const Solution& sol) const {
 }*/
 
 void Solution::initialize() {
-<<<<<<< HEAD
-	srand(time(NULL));
+	srand(time(localtime));
 	for (int i = 0; i < d_coord.size(); ++i) 
-		d_coord[i] = rand() % (upperLimit - lowerLimit) + lowerLimit;
-=======
+		d_coord[i] = rand() % static_cast<int>((_pbm.UpperLimit - _pbm.LowerLimit)) + _pbm.LowerLimit;
+
 	srand(time(localtime));
 	for (int i = 0; i < d_coord.size(); ++i)
 		d_coord[i] = rand() % (static_cast<int>(_pbm.UpperLimit - _pbm.LowerLimit)) + _pbm.LowerLimit;
->>>>>>> origin/master
+
  	_mass = rand() / RAND_MAX;
 }
 
@@ -67,26 +66,18 @@ double Solution::get_fitness() const {
 }
 
 unsigned int Solution::size() const {
-<<<<<<< HEAD
-	return d_coord.size();
-}
-
-std::vector<double>& Solution::solution() {
-	return &d_coord;
-=======
 	return static_cast<unsigned int>(d_coord.size());
 }
 
 std::vector<double>& Solution::solution() const{
 	return d_coord;
->>>>>>> origin/master
 }
 
 double& Solution::position(const int index) { //retournera une position du tableau d_coord
 	return d_coord[index];
 }
 
-<<<<<<< HEAD
+
 void Solution::position(const int index, const double value);
 
 double Solution::distEucl(const Solution& sol) const
@@ -97,8 +88,8 @@ double Solution::distEucl(const Solution& sol) const
 		distance += sqrt(pow(d_coord[i] - sol.d_coord[i], 2));
 	}
 }
-=======
+
 void Solution::position(const int index, const double value) {
 	d_coord[index]=value;
 }
->>>>>>> origin/master
+
