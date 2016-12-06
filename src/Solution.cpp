@@ -43,15 +43,15 @@ bool operator!= (const Solution& sol) const {
 
 void Solution::initialize() {
 	srand(time(NULL));
-	for (int i = 0; i < _solution.size(); ++i) 
-		_solution[i] = rand() % (upperLimit - lowerLimit) + lowerLimit;
+	for (int i = 0; i < d_coord.size(); ++i) 
+		d_coord[i] = rand() % (upperLimit - lowerLimit) + lowerLimit;
  	_mass = rand() / RAND_MAX;
 }
 
 double Solution::fitness() {
 	int sum = 0;
-	for (int i = 0; i < _solution.size() / 2; ++i) {
-		sum += 100 * pow((pow(_solution[2*i], 2) - _solution[2*i+1]), 2) + pow(_solution[2*i] - 1, 2);
+	for (int i = 0; i < d_coord.size() / 2; ++i) {
+		sum += 100 * pow((pow(d_coord[2*i], 2) - d_coord[2*i+1]), 2) + pow(d_coord[2*i] - 1, 2);
 	}
 	_current_fitness = sum;
 }
@@ -61,11 +61,11 @@ double Solution::get_fitness() {
 }
 
 unsigned int Solution::size() const {
-	return _solution.size();
+	return d_coord.size();
 }
 
 std::vector<double>& Solution::solution() {
-	return &_solution;
+	return &d_coord;
 }
 
 double& Solution::position(const int index) { //retournera une position du tableau d_coord
@@ -73,3 +73,12 @@ double& Solution::position(const int index) { //retournera une position du table
 }
 
 void Solution::position(const int index, const double value);
+
+double Solution::distEucl(const Solution& sol) const
+{
+	double distance = 0;
+	for(int i = 0; i < d_coord.size(); ++i)
+	{
+		distance += sqrt(pow(d_coord[i] - sol.d_coord[i], 2));
+	}
+}

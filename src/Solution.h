@@ -38,6 +38,8 @@ public:
 
     double& position(const int index); //retournera une position du tableau d_coord
     void position(const int index, const double value);
+    
+    double distEucl(const Solution& sol) const;
 
 
 private:
