@@ -34,14 +34,14 @@ public:
 
     unsigned int size() const;
 
-    std::vector<double>& solution();
+    std::vector<double>& solution() const;
 
-    double& position(const int index); //retournera une position du tableau _solution
+    double& position(const int index); //retournera une position du tableau d_coord
     void position(const int index, const double value);
 
 
 private:
-    std::vector<double> _solution;
+    std::vector<double> d_coord;
     double _current_fitness;
     const Problem& _pbm;
     double _mass;

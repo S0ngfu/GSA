@@ -4,21 +4,25 @@
 
 #include "Solution.h"
 
-Solution::Solution(const Problem& pbm) : _pbm{pbm};
+Solution::Solution(const Problem& pbm) : _pbm{pbm} {}
 
-Solution::Solution(const Solution& sol) {
-	_solution.reserve(sol.solution().size());
-	std::vector<double> vecSol = sol.solution();
+Solution::Solution(const Solution& sol): _pbm{sol.pbm()} {
+	d_coord.reserve(sol.solution().size());
+	std::vector<double>& vecSol = sol.solution();
 	for (int i = 0; i < vecSol.size(); ++i)
-		_solution[i] = vecSol[i];
+		d_coord[i] = vecSol[i];
 }
 
 friend std::ostream& operator<< (std::ostream& os, const Solution& sol) {
 	//toDo
+	os<<"Le problème lié à la solution est : "<<sol.pbm()<<""<<std::endl;
+	return os;
 }
     
 friend std::istream& operator>> (std::istream& is, Solution& sol) {
 	//toDo
+
+	return is;
 }
 
 const Problem& pbm() const {
@@ -64,7 +68,7 @@ std::vector<double>& solution() {
 	return &_solution;
 }
 
-double& position(const int index) { //retournera une position du tableau _solution
+double& position(const int index) { //retournera une position du tableau d_coord
 
 }
 
