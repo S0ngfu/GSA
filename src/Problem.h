@@ -15,8 +15,8 @@ public:
     Problem();
     //~Problem();
 
-    friend std::ostream& operator<< (std::ostream& os, const Problem& pbm);
-    friend std::istream& operator>> (std::istream& is, Problem& pbm);
+    friend std::ostream& operator<<(std::ostream& os, const Problem& pbm);
+    friend std::istream& operator>>(std::istream& is, Problem& pbm);
 
     //Problem& operator=  (const Problem& pbm);
     //bool operator== (const Problem& pbm) const;

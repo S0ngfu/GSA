@@ -19,8 +19,8 @@ public:
     Solution (const Problem& pbm);
     Solution (const Solution& sol);
 
-    friend std::ostream& operator<< (std::ostream& os, const Solution& sol);
-    friend std::istream& operator>> (std::istream& is, Solution& sol);
+    //friend std::ostream& operator<< (std::ostream& os, const Solution& sol);
+    //friend std::istream& operator>> (std::istream& is, Solution& sol);
 
     const Problem& pbm() const;
 
@@ -39,7 +39,6 @@ public:
     void position(const int index, const double value);
     
     double distEucl(const Solution& sol) const;
-
 
 private:
     std::vector<double> d_coord;

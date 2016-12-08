@@ -15,17 +15,19 @@ Solution::Solution(const Solution& sol): _pbm{sol.pbm()},
 		d_coord[i] = vecSol[i];
 }
 
-friend std::ostream& Solution::operator<< (std::ostream& os, const Solution& sol) {
+/*
+std::ostream& Solution::operator<< (std::ostream& os, const Solution& sol) {
 	//toDo
 
 	return os;
 }
     
-friend std::istream& Solution::operator>> (std::istream& is, Solution& sol) {
+std::istream& Solution::operator>> (std::istream& is, Solution& sol) {
 	//toDo
 
 	return is;
 }
+*/
 
 const Problem& Solution::pbm() const {
 	return _pbm;
@@ -41,7 +43,7 @@ bool operator!= (const Solution& sol) const {
 }*/
 
 void Solution::initialize() {
-	srand(time(localtime));
+	srand((unsigned int) time(NULL));
 	for (int i = 0; i < d_coord.size(); ++i) 
 		d_coord[i] = rand() % static_cast<int>((_pbm.UpperLimit - _pbm.LowerLimit)) + _pbm.LowerLimit;
 
@@ -66,7 +68,8 @@ unsigned int Solution::size() const {
 	return static_cast<unsigned int>(d_coord.size());
 }
 
-std::vector<double>& Solution::solution() const{
+std::vector<double>& Solution::solution() const
+{
 	return d_coord;
 }
 

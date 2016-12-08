@@ -10,14 +10,14 @@ int Problem::dimension() const {
     return _dimension;
 }
 
-friend std::ostream& Problem::operator<< (std::ostream& os, const Problem& pbm)
+/*
+std::ostream& Problem::operator<<(std::ostream& os, const Problem& pbm)
 {
-
     return os;
 }
 
-friend std::istream& Problem::operator>> (std::istream& is, Problem& pbm)
+std::istream& Problem::operator>>(std::istream& is, Problem& pbm)
 {
-
     return is;
 }
+*/

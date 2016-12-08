@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
     SetUpParams setup = SetUpParams();
 
     MyAlgorithm GSA(problem, setup);
-    GSA.evaluate();
+//    GSA.main();
 
     return 0;
 }
