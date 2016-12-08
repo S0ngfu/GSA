@@ -1,7 +1,7 @@
 
 #include "MyAlgorithm.h"
 
-MyAlgorithm::MyAlgorithm(const Problem &pbm, const SetUpParams &setup): _setup{setup} {
+MyAlgorithm::MyAlgorithm(const Problem &pbm, const SetUpParams &setup): _setup{setup}, _g{_g_const} {
 	_solutions.reserve(_setup.population_size());
 	for (int i = 0; i < _setup.population_size(); ++i) {
 		Solution *s = new Solution(pbm);
@@ -93,5 +93,9 @@ Solution& myAlgorithm::worst_solution() const {
 }
 
 void myAlgorithm::evolution(int iter) {
-	
+	//Réduction constante gravitationnelle
+	double alpha = 20;
+	_g = _g_const * exp(-alpha * (iter / _setup._nb_evolution_steps));
+
+	//https://fr.mathworks.com/matlabcentral/fileexchange/27756-gravitational-search-algorithm--gsa-/content/Gravitational%20Search%20algorithm/GSA.m
 }

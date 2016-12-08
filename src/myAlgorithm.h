@@ -26,6 +26,8 @@ private:
 	std::vector<struct particle> _fitness_values;
 	const SetUpParams& _setup;
 	unsigned int _upper_cost,_lower_cost; // lower and upper fitness of individuals in population
+	const double _g_const = 100;
+	double _g;
 
 public:
 	MyAlgorithm(const Problem& pbm,const SetUpParams& setup);
