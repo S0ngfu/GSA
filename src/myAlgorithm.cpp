@@ -47,6 +47,9 @@ void MyAlgorithm::evaluate() {
 		_fitness_values[i].fitness = _solutions[i]->fitness();
 		_fitness_values[i].index = i;
 	}
+
+	_upper_cost = 0;
+	_lower_cost = _setup.population_size() - 1;
 }
 
 const std::vector<Solution*>& MyAlgorithm::solutions() const {
@@ -73,4 +76,22 @@ double MyAlgorithm::fitness(const unsigned int index) const {
 	return _fitness_values[index].fitness; //Pas sûr si on regarde l'index du tableau _fitness_values ou l'index du .index du struct
 }
 
-//Reste 5 méthodes à implémenter
+double myAlgorithm::best_cost() const {
+	return _fitness_values[_upper_cost];
+}
+		
+double myAlgorithm::worst_cost() const {
+	return _fitness_values[_lower_cost];
+}
+
+Solution& myAlgorithm::best_solution() const {
+	return _fitness_values[_upper_cost].fitness; 
+}
+
+Solution& myAlgorithm::worst_solution() const {
+	return _fitness_values[_lower_cost].fitness;
+}
+
+void myAlgorithm::evolution(int iter) {
+	
+}
