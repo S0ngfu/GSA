@@ -101,11 +101,27 @@ void MyAlgorithm::evolution(int iter) {
 	//Réduction constante gravitationnelle
 	double alpha = 20;
 	_g = _g_const * exp(-alpha * (iter / _setup.nb_evolution_steps()));
-	//
+
+    /* CECI EST L'ALGO TEL QU'IL EST FAIT DANS LE PROBLEME DES CARTES
+     * des modifs peuvent être nécessaires
+     *
+     * On tire deux individus de la pop au hasard
+     * on compare leurs fitness (Winner/Loser)
+     * on parcourt chaque valeur de la solution (toute sa dimension)
+     * on tire à chaque fois des rand (entre 0 et 1)
+     * si le rand est plus petit que la proba du crossover
+     * la val du loser devient celle du winner
+     * on tire un autre rand, si il est plus petit que la proba de la mutation
+     * la val du loser mute
+     *
+     * si la fitness du loser devient parfaite, on arrête cette itération
+     */
+
 	//https://fr.mathworks.com/matlabcentral/fileexchange/27756-gravitational-search-algorithm--gsa-/content/Gravitational%20Search%20algorithm/GSA.m
 }
 
 void MyAlgorithm::main() {
+    double moy_best_fit=0.0;
 	for(int runs=0 ; runs < _setup.independent_runs() ; runs++)
 	{
 		initialize();
@@ -114,5 +130,7 @@ void MyAlgorithm::main() {
 			evolution(iter);
 		}
 		evaluate();
+		moy_best_fit+=best_cost();
 	}
+    //Affichage de la moyenne des meilleures fitness.
 }
