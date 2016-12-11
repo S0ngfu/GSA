@@ -1,7 +1,12 @@
 
 #include "MyAlgorithm.h"
 
-MyAlgorithm::MyAlgorithm(const Problem &pbm, const SetUpParams &setup): _setup{setup}, _g{_g_const} {
+MyAlgorithm::MyAlgorithm(const Problem &pbm, const SetUpParams &setup):
+		_setup{setup},
+		_g{_g_const},
+		_mutationProbability{0.1},
+		_crossoverProbability{0.5}
+{
 	_solutions.reserve(_setup.population_size());
 	for (int i = 0; i < _setup.population_size(); ++i) {
 		Solution *s = new Solution(pbm);
@@ -73,7 +78,7 @@ std::vector<struct particle>&  MyAlgorithm::fitness_values() {
 }
 
 double MyAlgorithm::fitness(const unsigned int index) const {
-	return _fitness_values[index].fitness; //Pas sûr si on regarde l'index du tableau _fitness_values ou l'index du .index du struct
+	return _solutions[index]->fitness(); //Pas sûr si on regarde l'index du tableau _fitness_values ou l'index du .index du struct
 }
 
 double MyAlgorithm::best_cost() const {
@@ -96,6 +101,18 @@ void MyAlgorithm::evolution(int iter) {
 	//Réduction constante gravitationnelle
 	double alpha = 20;
 	_g = _g_const * exp(-alpha * (iter / _setup.nb_evolution_steps()));
-
+	//
 	//https://fr.mathworks.com/matlabcentral/fileexchange/27756-gravitational-search-algorithm--gsa-/content/Gravitational%20Search%20algorithm/GSA.m
+}
+
+void MyAlgorithm::main() {
+	for(int runs=0 ; runs < _setup.independent_runs() ; runs++)
+	{
+		initialize();
+		for(int iter=0 ; iter < _setup.nb_evolution_steps() ; iter++)
+		{
+			evolution(iter);
+		}
+		evaluate();
+	}
 }

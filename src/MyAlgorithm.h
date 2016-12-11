@@ -28,6 +28,8 @@ private:
 	unsigned int _upper_cost,_lower_cost; // lower and upper fitness of individuals in population
 	const double _g_const = 100;
 	double _g;
+	const double _mutationProbability;
+	const double _crossoverProbability;
 
 public:
 	MyAlgorithm(const Problem& pbm,const SetUpParams& setup);
@@ -56,6 +58,7 @@ public:
 	Solution& worst_solution() const;
 	void evolution(int iter); /*makes an evolution step*/
 
+	void main();
 };
 
 #endif
