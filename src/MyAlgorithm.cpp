@@ -76,26 +76,26 @@ double MyAlgorithm::fitness(const unsigned int index) const {
 	return _fitness_values[index].fitness; //Pas sûr si on regarde l'index du tableau _fitness_values ou l'index du .index du struct
 }
 
-double myAlgorithm::best_cost() const {
-	return _fitness_values[_upper_cost];
+double MyAlgorithm::best_cost() const {
+	return _fitness_values[_upper_cost].fitness;
 }
 		
-double myAlgorithm::worst_cost() const {
-	return _fitness_values[_lower_cost];
-}
-
-Solution& myAlgorithm::best_solution() const {
-	return _fitness_values[_upper_cost].fitness; 
-}
-
-Solution& myAlgorithm::worst_solution() const {
+double MyAlgorithm::worst_cost() const {
 	return _fitness_values[_lower_cost].fitness;
 }
 
-void myAlgorithm::evolution(int iter) {
+Solution& MyAlgorithm::best_solution() const {
+	return *_solutions[_upper_cost];
+}
+
+Solution& MyAlgorithm::worst_solution() const {
+	return *_solutions[_lower_cost];
+}
+
+void MyAlgorithm::evolution(int iter) {
 	//Réduction constante gravitationnelle
 	double alpha = 20;
-	_g = _g_const * exp(-alpha * (iter / _setup._nb_evolution_steps));
+	_g = _g_const * exp(-alpha * (iter / _setup.nb_evolution_steps()));
 
 	//https://fr.mathworks.com/matlabcentral/fileexchange/27756-gravitational-search-algorithm--gsa-/content/Gravitational%20Search%20algorithm/GSA.m
 }
