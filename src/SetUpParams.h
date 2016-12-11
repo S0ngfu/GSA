@@ -19,9 +19,10 @@ private:
 
 public:
     SetUpParams ();
+    SetUpParams (unsigned int runs, unsigned int steps, unsigned int pop_size, unsigned int sol_size);
 
-    friend std::ostream& operator<< (std::ostream& os, const SetUpParams& setup);
-    friend std::istream& operator>> (std::istream& is, SetUpParams& setup);
+    //friend std::ostream& operator<< (std::ostream& os, const SetUpParams& setup);
+    //friend std::istream& operator>> (std::istream& is, SetUpParams& setup);
 
     const unsigned int   independent_runs() const;
     const unsigned int   nb_evolution_steps() const;
@@ -32,7 +33,7 @@ public:
     void population_size(const unsigned int val);
     void solution_size(const unsigned int val);
 
-    ~SetUpParams();
+    ~SetUpParams()=default;
 };
 
 

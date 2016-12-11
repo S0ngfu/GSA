@@ -6,13 +6,11 @@
 
 Solution::Solution(const Problem& pbm) : _pbm{pbm} {}
 
-Solution::Solution(const Solution& sol): _pbm{sol.pbm()},
-										 _current_fitness{sol.get_fitness()}
+Solution::Solution(const Solution& sol): _pbm{sol._pbm},
+										 _current_fitness{sol._current_fitness}
 {
-	d_coord.reserve(sol.solution().size());
-	std::vector<double>& vecSol = sol.solution();
-	for (int i = 0; i < vecSol.size(); ++i)
-		d_coord[i] = vecSol[i];
+	d_coord.reserve(sol.d_coord.size());
+	d_coord = sol.d_coord;
 }
 
 /*
@@ -73,10 +71,10 @@ std::vector<double>& Solution::solution() const
 	return d_coord;
 }
 
-double& Solution::position(const int index) { //retournera une position du tableau d_coord
+double& Solution::position(const int index) //retournera une position du tableau d_coord
+{
 	return d_coord[index];
 }
-
 
 void Solution::position(const int index, const double value) {
     d_coord[index]=value;
