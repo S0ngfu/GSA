@@ -132,5 +132,7 @@ void MyAlgorithm::main() {
 		evaluate();
 		moy_best_fit+=best_cost();
 	}
+    moy_best_fit/=_setup.independent_runs();
+    std::cout<<"Moyenne : "<<moy_best_fit<<std::endl;
     //Affichage de la moyenne des meilleures fitness.
 }
