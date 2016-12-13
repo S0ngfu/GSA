@@ -81,11 +81,11 @@ double MyAlgorithm::fitness(const unsigned int index) const {
 	return _solutions[index]->fitness(); //Pas sûr si on regarde l'index du tableau _fitness_values ou l'index du .index du struct
 }
 
-double MyAlgorithm::best_cost() const {
+double MyAlgorithm::best_mass() const {
 	return _fitness_values[_upper_cost].fitness;
 }
 		
-double MyAlgorithm::worst_cost() const {
+double MyAlgorithm::worst_mass() const {
 	return _fitness_values[_lower_cost].fitness;
 }
 
@@ -130,7 +130,7 @@ void MyAlgorithm::main() {
 			evolution(iter);
 		}
 		evaluate();
-		moy_best_fit+=best_cost();
+		moy_best_fit+= 0//meilleure fitness de la solution (me souvient plus de la formule);
 	}
     moy_best_fit/=_setup.independent_runs();
     std::cout<<"Moyenne : "<<moy_best_fit<<std::endl;

@@ -52,8 +52,8 @@ public:
 	double fitness(const unsigned int index) const;
 
 
-	double best_cost() const;
-	double worst_cost() const;
+	double best_mass() const;
+	double worst_mass() const;
 	Solution& best_solution() const;
 	Solution& worst_solution() const;
 	void evolution(int iter); /*makes an evolution step*/
