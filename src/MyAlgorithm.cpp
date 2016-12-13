@@ -98,24 +98,13 @@ Solution& MyAlgorithm::worst_solution() const {
 }
 
 void MyAlgorithm::evolution(int iter) {
-	//Réduction constante gravitationnelle
-	double alpha = 20;
-	_g = _g_const * exp(-alpha * (iter / _setup.nb_evolution_steps()));
+	//Récupération de la meilleure fitness pour cette itération
+	//IL FAUT CORRIGER UPPER/LOWER COST JE COMPRENDS PAS
 
-    /* CECI EST L'ALGO TEL QU'IL EST FAIT DANS LE PROBLEME DES CARTES
-     * des modifs peuvent être nécessaires
-     *
-     * On tire deux individus de la pop au hasard
-     * on compare leurs fitness (Winner/Loser)
-     * on parcourt chaque valeur de la solution (toute sa dimension)
-     * on tire à chaque fois des rand (entre 0 et 1)
-     * si le rand est plus petit que la proba du crossover
-     * la val du loser devient celle du winner
-     * on tire un autre rand, si il est plus petit que la proba de la mutation
-     * la val du loser mute
-     *
-     * si la fitness du loser devient parfaite, on arrête cette itération
-     */
+	//Constante G
+	double g = MyAlgorithm::g_const(iter, _setup.nb_evolution_steps());
+
+    
 
 	//https://fr.mathworks.com/matlabcentral/fileexchange/27756-gravitational-search-algorithm--gsa-/content/Gravitational%20Search%20algorithm/GSA.m
 }
@@ -135,4 +124,10 @@ void MyAlgorithm::main() {
     moy_best_fit/=_setup.independent_runs();
     std::cout<<"Moyenne : "<<moy_best_fit<<std::endl;
     //Affichage de la moyenne des meilleures fitness.
+}
+
+double MyAlgorithm::g_const(int iter, int max_iter) const {
+	double _g_const = 100;
+	int alpha = 20;
+	return _g_const * exp(-alpha * (iter / max_iter));
 }
