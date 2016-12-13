@@ -6,6 +6,11 @@
 
 Problem::Problem():_dimension(30), LowerLimit{0}, UpperLimit{100}{}
 
+Problem::Problem(double lowLim, double upLim, int dimension, Fonction f):
+        LowerLimit{lowLim}, UpperLimit{upLim}, _dimension{dimension}, _fonction{f}
+{
+}
+
 int Problem::dimension() const {
     return _dimension;
 }

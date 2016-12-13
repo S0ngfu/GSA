@@ -6,11 +6,15 @@
 #define GSA_PROBLEM_H
 
 #include <iostream>
+#include <vector>
+
+typedef double(*Fonction)(const std::vector<double>&);
 
 class Problem
 {
 public:
     Problem();
+    Problem(double lowLim, double upLim, int dimension, Fonction f);
     //~Problem();
 
     //friend std::ostream& operator<<(std::ostream& os, const Problem& pbm);
@@ -24,8 +28,8 @@ public:
     double LowerLimit, UpperLimit;
 
 private:
-
     int _dimension;
+    Fonction _fonction;
 };
 
 
