@@ -1,8 +1,10 @@
+const double PI = 3.14159265359;
+
 double Rastrigin()
 {
 	int sum = 0;
 	for (int i = 0; i < d_coord.size(); ++i)
-		sum += pow(d_coord[i], 2) - 10 * cos(2 * M_PI * d_coord[i] );
+		sum += pow(d_coord[i], 2) - 10 * cos(2 * PI * d_coord[i] );
 	sum += 10 * d_coord.size();
 	_current_fitness = sum;
 	return _current_fitness;
@@ -16,7 +18,7 @@ double Ackley()
 	for(int i = 0; i < d_coord.size(); ++i)
 	{
 		sum1 += pow(d_coord[i], 2)
-		sum2 += cos(2 * M_PI * d_coord[i])
+		sum2 += cos(2 * PI * d_coord[i])
 	}
 	sum = -20 * exp(-0.2 * sqrt((1 / 30) * sum1)) - exp((1 / 30) * sum2) + 20 + exp(1);
 	_current_fitness = sum;
@@ -48,7 +50,7 @@ double Weierstrass()
 	int sum = 0;
 	for(int j = 0; j < 50; ++j)
 		for(int i = 0; i < d_coord.size(); ++i)
-			sum += pow(0.5, j) * cos(pow(12, j) * M_PI * d_coord[i]);
+			sum += pow(0.5, j) * cos(pow(12, j) * PI * d_coord[i]);
 	_current_fitness = sum;
 	return _current_fitness; 
 }
