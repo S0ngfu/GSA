@@ -3,8 +3,7 @@
 //
 
 #include "Problem.h"
-
-Problem::Problem():_dimension(30), LowerLimit{0}, UpperLimit{100}, _fonction{rosenbrock}{}
+#include "Benchmark.h"
 
 Problem::Problem(double lowLim, double upLim, int dimension, Fonction f):
         LowerLimit{lowLim}, UpperLimit{upLim}, _dimension{dimension}, _fonction{f}

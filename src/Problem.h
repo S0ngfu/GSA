@@ -13,9 +13,8 @@ typedef double(*Fonction)(const std::vector<double>&);
 class Problem
 {
 public:
-    Problem();
     Problem(double lowLim, double upLim, int dimension, Fonction f);
-    //~Problem();
+    ~Problem()=default;
 
     //friend std::ostream& operator<<(std::ostream& os, const Problem& pbm);
     //friend std::istream& operator>>(std::istream& is, Problem& pbm);

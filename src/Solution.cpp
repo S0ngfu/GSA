@@ -49,13 +49,7 @@ void Solution::initialize() {
 }
 
 double Solution::fitness() {
-	int sum = 0;
-	//Rosenbrock
-	for (int i = 0; i < d_coord.size() / 2; ++i) 
-		sum += 100 * pow((pow(d_coord[2*i], 2) - d_coord[2*i+1]), 2) + pow(d_coord[2*i] - 1, 2);
-
-	_current_fitness = sum;
-    return _current_fitness;
+	//ToDo
 }
 
 double Solution::get_fitness() const {
@@ -68,7 +62,7 @@ unsigned int Solution::size() const {
 
 std::vector<double>& Solution::solution() const
 {
-	return d_coord;
+	return (std::vector<double>&) d_coord;
 }
 
 double& Solution::position(const int index) //retournera une position du tableau d_coord
