@@ -52,9 +52,9 @@ void MyAlgorithm::evaluate() {
 		_fitness_values[i].fitness = _solutions[i]->fitness();
 		_fitness_values[i].index = i;
 	}
-
-	_upper_cost = 0;
-	_lower_cost = _setup.population_size() - 1;
+    //ToDo -> tri tab particule
+	_upper_cost = 0; //ToDo
+	_lower_cost = _setup.population_size() - 1;//ToDo
 }
 
 const std::vector<Solution*>& MyAlgorithm::solutions() const {
@@ -119,7 +119,12 @@ void MyAlgorithm::main() {
 			evolution(iter);
 		}
 		evaluate();
-		moy_best_fit+= 0;//meilleure fitness de la solution (me souvient plus de la formule);
+        //ToDo : ceci est temporaire, il faut plus opti et faire une fonction dédié à cela
+        double best_fit=100000;
+        for(int i = 0 ; i < _setup.population_size() ; i++)
+            if(best_fit > _fitness_values[i].fitness)
+                best_fit=_fitness_values[i].fitness;
+		moy_best_fit+= best_fit;//meilleure fitness de la solution (me souvient plus de la formule);
 	}
     moy_best_fit/=_setup.independent_runs();
     std::cout<<"Moyenne : "<<moy_best_fit<<std::endl;

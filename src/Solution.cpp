@@ -50,6 +50,7 @@ void Solution::initialize() {
 
 double Solution::fitness() {
 	//ToDo
+	_current_fitness=(_pbm.function())(solution());
 }
 
 double Solution::get_fitness() const {

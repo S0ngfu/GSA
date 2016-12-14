@@ -3,6 +3,7 @@
 //
 
 #include "MyAlgorithm.h"
+#include "Benchmark.h"
 
 int menu()
 {
@@ -17,7 +18,7 @@ int menu()
 
 int main(int argc, char *argv[])
 {
-    Problem problem = Problem();
+    Problem problem = Problem(-5,10,30,Rosenbrock);
 
     int choice=menu();
     while(choice != 1)
@@ -34,11 +35,13 @@ int main(int argc, char *argv[])
         }
         choice=menu();
     }
+
 /*ToDo ? Pouvoir modifier les paramètres du programme sans toucher au code
  * Il faudrait donc pouvoir mettre en paramètre du constructeur un lien
  * vers un fichier. Dans le cas ou se fichier n'est pas sous le bon format,
  * ne contient pas les paramètres sous la bonne forme, il appel
  * le constructeur par défaut*/
+
     SetUpParams setup = SetUpParams();
 
     MyAlgorithm GSA(problem, setup);

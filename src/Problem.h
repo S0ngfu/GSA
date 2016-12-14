@@ -25,6 +25,7 @@ public:
 
     int dimension() const;
     double LowerLimit, UpperLimit;
+    Fonction function() const;
 
 private:
     int _dimension;

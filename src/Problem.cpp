@@ -14,6 +14,10 @@ int Problem::dimension() const {
     return _dimension;
 }
 
+Fonction Problem::function() const {
+    return _fonction;
+}
+
 /*
 std::ostream& Problem::operator<<(std::ostream& os, const Problem& pbm)
 {
