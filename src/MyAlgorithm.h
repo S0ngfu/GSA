@@ -17,8 +17,6 @@ struct particle // index of a particle in the swarm and its fitness
 };
 
 
-//=======================================================================
-
 class MyAlgorithm
 {
 private:
@@ -28,8 +26,8 @@ private:
 	unsigned int _upper_cost,_lower_cost; // lower and upper fitness of individuals in population
 	const double _mutationProbability;
 	const double _crossoverProbability;
-
-	double g_const(int iter, int max_iter) const;
+	const double _g_const=100;
+	double _g;
 
 public:
 	MyAlgorithm(const Problem& pbm,const SetUpParams& setup);
@@ -52,11 +50,12 @@ public:
 	double fitness(const unsigned int index) const;
 
 
-	double best_mass() const;
-	double worst_mass() const;
+	double best_fitness() const;
+	double worst_fitness() const;
 	Solution& best_solution() const;
 	Solution& worst_solution() const;
 	void evolution(int iter); /*makes an evolution step*/
+	double g_update(int iter, int max_iter) const;
 
 	void main();
 };

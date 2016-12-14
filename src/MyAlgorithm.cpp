@@ -81,12 +81,12 @@ double MyAlgorithm::fitness(const unsigned int index) const {
 	return _solutions[index]->fitness(); //Pas sûr si on regarde l'index du tableau _fitness_values ou l'index du .index du struct
 }
 
-double MyAlgorithm::best_mass() const {
-	return _fitness_values[_upper_cost].fitness;
+double MyAlgorithm::best_fitness() const {
+	return _solutions[_upper_cost]->get_fitness();
 }
-		
-double MyAlgorithm::worst_mass() const {
-	return _fitness_values[_lower_cost].fitness;
+
+double MyAlgorithm::worst_fitness() const {
+	return _solutions[_lower_cost]->get_fitness();
 }
 
 Solution& MyAlgorithm::best_solution() const {
@@ -102,7 +102,7 @@ void MyAlgorithm::evolution(int iter) {
 	//IL FAUT CORRIGER UPPER/LOWER COST JE COMPRENDS PAS
 
 	//Constante G
-	double g = MyAlgorithm::g_const(iter, _setup.nb_evolution_steps());
+	double g = MyAlgorithm::g_update(iter, _setup.nb_evolution_steps());
 
     
 
@@ -119,15 +119,14 @@ void MyAlgorithm::main() {
 			evolution(iter);
 		}
 		evaluate();
-		moy_best_fit+= 0//meilleure fitness de la solution (me souvient plus de la formule);
+		moy_best_fit+= 0;//meilleure fitness de la solution (me souvient plus de la formule);
 	}
     moy_best_fit/=_setup.independent_runs();
     std::cout<<"Moyenne : "<<moy_best_fit<<std::endl;
     //Affichage de la moyenne des meilleures fitness.
 }
 
-double MyAlgorithm::g_const(int iter, int max_iter) const {
-	double _g_const = 100;
+double MyAlgorithm::g_update(int iter, int max_iter) const {
 	int alpha = 20;
 	return _g_const * exp(-alpha * (iter / max_iter));
 }
