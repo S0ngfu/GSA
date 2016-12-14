@@ -40,11 +40,18 @@ public:
     
     double distEucl(const Solution& sol) const;
 
+    double get_accel() const;
+    void set_accel(double accel);
+
+    double get_mass() const;
+    void set_mass(double mass);
+
 private:
     std::vector<double> d_coord;
     double _current_fitness;
     const Problem& _pbm;
     double _mass;
+    double _accel;
 };
 
 

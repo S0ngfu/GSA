@@ -79,5 +79,21 @@ double Solution::distEucl(const Solution& sol) const
 {
 	double distance = 0;
 	for(int i = 0; i < d_coord.size(); ++i)
-		distance += sqrt(pow(d_coord[i] - sol.d_coord[i], 2));
+		distance += sqrt(pow(d_coord[i],2) - pow(sol.d_coord[i],2));
+}
+
+double Solution::get_accel() const {
+	return _accel;
+}
+
+void Solution::set_accel(double accel) {
+	_accel=accel;
+}
+
+double Solution::get_mass() const {
+	return _mass;
+}
+
+void Solution::set_mass(double mass) {
+	_mass=mass;
 }

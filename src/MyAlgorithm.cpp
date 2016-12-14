@@ -102,9 +102,7 @@ void MyAlgorithm::evolution(int iter) {
 	//IL FAUT CORRIGER UPPER/LOWER COST JE COMPRENDS PAS
 
 	//Constante G
-	double g = MyAlgorithm::g_update(iter, _setup.nb_evolution_steps());
-
-    
+	_g = MyAlgorithm::g_update(iter, _setup.nb_evolution_steps());
 
 	//https://fr.mathworks.com/matlabcentral/fileexchange/27756-gravitational-search-algorithm--gsa-/content/Gravitational%20Search%20algorithm/GSA.m
 }
