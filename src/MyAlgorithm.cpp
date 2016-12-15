@@ -101,8 +101,12 @@ void MyAlgorithm::evolution(int iter) {
 	//Récupération de la meilleure fitness pour cette itération
 	//IL FAUT CORRIGER UPPER/LOWER COST JE COMPRENDS PAS
 
+    evaluate();
 	//Constante G
-	_g = MyAlgorithm::g_update(iter, _setup.nb_evolution_steps());
+	double g = g_update(iter, _setup.nb_evolution_steps());
+
+    // VOIR https://www.researchgate.net/profile/Hossein_Nezamabadi-pour/publication/222853813_GSA_a_Gravitational_Search_Algorithm/links/0912f50645d730966a000000.pdf
+    // PAGE 6
 
 	//https://fr.mathworks.com/matlabcentral/fileexchange/27756-gravitational-search-algorithm--gsa-/content/Gravitational%20Search%20algorithm/GSA.m
 }
@@ -130,6 +134,7 @@ void MyAlgorithm::main() {
 }
 
 double MyAlgorithm::g_update(int iter, int max_iter) const {
-	int alpha = 20;
-	return _g_const * exp(-alpha * (iter / max_iter));
+	const double g=100;
+    int alpha = 20;
+	return g * exp(-alpha * (iter / max_iter));
 }
