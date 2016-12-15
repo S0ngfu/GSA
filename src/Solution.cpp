@@ -49,8 +49,7 @@ void Solution::initialize() {
 }
 
 double Solution::fitness() {
-	//ToDo
-	_current_fitness=(_pbm.function())(solution());
+	_current_fitness=(_pbm.function())(d_coord);
 }
 
 double Solution::get_fitness() const {
