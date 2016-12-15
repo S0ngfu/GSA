@@ -48,7 +48,25 @@ void MyAlgorithm::initialize()
 void MyAlgorithm::evaluate() {
 	for (int i = 0; i < _setup.population_size(); ++i)
 		_solutions[i]->fitness();
-	
+
+	updateCost();
+}
+
+void MyAlgorithm::updateCost() {
+	double min = max = _solutions[0]->get_fitness();
+	for (int i = 1; i < _setup.population_size(); ++i) {
+		double temp = _solutions[i]->get_fitness;
+		if (temp < min) {
+			min = temp;
+			_lower_cost = i;
+		}
+		else if (temp > max) {
+			max = temp;
+			_upper_cost = i;
+		}
+	for (int i = 0; i < _setup.population_size(); ++i)
+		_solutions[i]->fitness();
+
 	updateCost();
 }
 
@@ -82,7 +100,11 @@ unsigned int MyAlgorithm::lower_cost() const {
 
 Solution& MyAlgorithm::solution(const unsigned int index) const {
 	return *_solutions[index];
-}      
+}
+        
+std::vector<struct particle>&  MyAlgorithm::fitness_values() {
+	return _fitness_values;
+}
 
 double MyAlgorithm::fitness(const unsigned int index) const {
 	return _solutions[index]->fitness();
