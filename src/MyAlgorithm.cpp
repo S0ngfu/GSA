@@ -46,14 +46,26 @@ void MyAlgorithm::initialize()
 }
 
 void MyAlgorithm::evaluate() {
-	_fitness_values.reserve(_setup.population_size());
-	for (int i = 0; i < _setup.population_size(); ++i) {
-		_fitness_values[i].fitness = _solutions[i]->fitness();
-		_fitness_values[i].index = i;
+	for (int i = 0; i < _setup.population_size(); ++i)
+		_solutions[i]->fitness();
+	
+	updateCost();
+}
+
+void MyAlgorithm::updateCost() {
+	double min, max;
+    min = max = _solutions[0]->get_fitness();
+	for (unsigned int i = 1; i < _setup.population_size(); ++i) {
+		double temp = _solutions[i]->get_fitness();
+		if (temp < min) {
+			min = temp;
+			_lower_cost = i;
+		}
+		else if (temp > max) {
+			max = temp;
+			_upper_cost = i;
+		}
 	}
-    //ToDo -> tri tab particule
-	_upper_cost = 0; //ToDo
-	_lower_cost = _setup.population_size() - 1;//ToDo
 }
 
 const std::vector<Solution*>& MyAlgorithm::solutions() const {
@@ -70,14 +82,10 @@ unsigned int MyAlgorithm::lower_cost() const {
 
 Solution& MyAlgorithm::solution(const unsigned int index) const {
 	return *_solutions[index];
-}
-        
-std::vector<struct particle>&  MyAlgorithm::fitness_values() {
-	return _fitness_values;
-}
+}      
 
 double MyAlgorithm::fitness(const unsigned int index) const {
-	return _solutions[index]->fitness(); //Pas sûr si on regarde l'index du tableau _fitness_values ou l'index du .index du struct
+	return _solutions[index]->fitness();
 }
 
 double MyAlgorithm::best_fitness() const {
@@ -123,8 +131,8 @@ void MyAlgorithm::main() {
         //ToDo : ceci est temporaire, il faut plus opti et faire une fonction dédié à cela
         double best_fit=100000;
         for(int i = 0 ; i < _setup.population_size() ; i++)
-            if(best_fit > _fitness_values[i].fitness)
-                best_fit=_fitness_values[i].fitness;
+            if(best_fit > _solutions[i]->get_fitness())
+                best_fit=_solutions[i]->get_fitness();
 		moy_best_fit+= best_fit;//meilleure fitness de la solution (me souvient plus de la formule);
 	}
     moy_best_fit/=_setup.independent_runs();
