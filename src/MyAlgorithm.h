@@ -32,14 +32,17 @@ public:
 	// creates a array with fitness of all solutions in MyAlgorithm and its position in the MyAlgorithm
 	void evaluate();
 	void updateCost();
-
+    void updateMass();
+    void reduceMass();
+    void updatePosition();
 	const std::vector<Solution*>& solutions() const;
 	unsigned int upper_cost() const;
 	unsigned int lower_cost() const;
 	Solution& solution(const unsigned int index) const;
-	double fitness(const unsigned int index) const;
+	void fitness(const unsigned int index) const;
 
-
+    double gravitationalValue(const Solution &sol1, const Solution &sol2, int i, double g);
+    void updateaccel(double g);
 	double best_fitness() const;
 	double worst_fitness() const;
 	Solution& best_solution() const;

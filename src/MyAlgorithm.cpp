@@ -85,8 +85,8 @@ Solution& MyAlgorithm::solution(const unsigned int index) const {
 	return *_solutions[index];
 }
 
-double MyAlgorithm::fitness(const unsigned int index) const {
-	return _solutions[index]->fitness();
+void MyAlgorithm::fitness(const unsigned int index) const {
+	_solutions[index]->fitness();
 }
 
 double MyAlgorithm::best_fitness() const {
@@ -107,11 +107,16 @@ Solution& MyAlgorithm::worst_solution() const {
 
 void MyAlgorithm::evolution(int iter) {
 	//Récupération de la meilleure fitness pour cette itération
-	//IL FAUT CORRIGER UPPER/LOWER COST JE COMPRENDS PAS
+	//IL FAUT CORRIGER UPPER/LOWER COST JE COMPRENDS PAS, IDA TG T NUL
 
     evaluate();
 	//Constante G
 	double g = g_update(iter, _setup.nb_evolution_steps());
+
+    updateMass();
+    reduceMass();
+    updateaccel(g);
+    updatePosition();
 
     // VOIR https://www.researchgate.net/profile/Hossein_Nezamabadi-pour/publication/222853813_GSA_a_Gravitational_Search_Algorithm/links/0912f50645d730966a000000.pdf
     // PAGE 6
@@ -121,22 +126,27 @@ void MyAlgorithm::evolution(int iter) {
 
 void MyAlgorithm::main() {
     double moy_best_fit=0.0;
+    double moy_worst_fit=0.0;
+    std::cout<<"          best      worst"<<std::endl;
 	for(int runs=0 ; runs < _setup.independent_runs() ; runs++)
 	{
+        initialize();
 		for(int iter=0 ; iter < _setup.nb_evolution_steps() ; iter++)
 		{
 			evolution(iter);
+
 		}
 		evaluate();
-        //ToDo : ceci est temporaire, il faut plus opti et faire une fonction dédié à cela
-        double best_fit=100000;
-        for(int i = 0 ; i < _setup.population_size() ; i++)
-            if(best_fit > _solutions[i]->get_fitness())
-                best_fit=_solutions[i]->get_fitness();
-		moy_best_fit+= best_fit;//meilleure fitness de la solution (me souvient plus de la formule);
-	}
+
+        std::cout<<"Execution "<<runs<<" : "<<best_fitness()<<" "<<worst_fitness()<<std::endl;
+
+		moy_best_fit+= best_fitness();//meilleure fitness de la solution (me souvient plus de la formule);
+	    moy_worst_fit+=worst_fitness();
+    }
     moy_best_fit/=_setup.independent_runs();
-    std::cout<<"Moyenne : "<<moy_best_fit<<std::endl;
+    moy_worst_fit/=_setup.independent_runs();
+    std::cout<<"Moyenne meilleures fitness : "<<moy_best_fit<<std::endl;
+    std::cout<<"Moyenne pires fitness : "<<moy_worst_fit<<std::endl;
     //Affichage de la moyenne des meilleures fitness.
 }
 
@@ -144,4 +154,47 @@ double MyAlgorithm::g_update(int iter, int max_iter) const {
 	const double g=100;
     int alpha = 20;
 	return g * exp(-alpha * (iter / max_iter));
+}
+
+void MyAlgorithm::updateaccel(double g)
+{
+    for(int i = 0; i < _setup.population_size(); i++)
+    {
+        for (int j = 0; j < _setup.population_size(); j++)
+            if(i != j)
+                for(int k = 0; k < _setup.solution_size(); k++)
+                    _solutions[i]->set_vecteuraccel(gravitationalValue(*_solutions[i], *_solutions[j], k, g), k);
+    }
+}
+
+double MyAlgorithm::gravitationalValue(const Solution &sol1, const Solution &sol2, int i, double g)
+{
+    double temp;
+    srand((unsigned int) time(NULL));
+    double random = rand() / RAND_MAX;
+    temp = random * g * sol2.get_mass() * (sol2.solution()[i] - sol1.solution()[i]) / sol1.distEucl(sol2);
+    return temp;
+}
+
+void MyAlgorithm::updateMass()
+{
+    double best_fit = _solutions[lower_cost()]->get_fitness();
+    double worst_fit = _solutions[upper_cost()]->get_fitness();
+    for(int i = 0; i < _setup.population_size(); i++)
+        _solutions[i]->set_mass((_solutions[i]->get_fitness() - worst_fit) / (best_fit - worst_fit));
+}
+
+void MyAlgorithm::reduceMass()
+{
+    double temp = 0;
+    for(int i = 0; i < _setup.population_size(); i++)
+        temp += _solutions[i]->get_mass();
+    for(int i = 0; i < _setup.population_size(); i++)
+        _solutions[i]->set_mass(_solutions[i]->get_mass() / temp);
+}
+
+void MyAlgorithm::updatePosition()
+{
+    for(int i = 0; i < _setup.population_size(); i++)
+        _solutions[i]->moveSolution(1);
 }

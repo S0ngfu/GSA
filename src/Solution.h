@@ -28,9 +28,8 @@ public:
     bool operator!= (const Solution& sol) const;*/
 
     void initialize();
-    double fitness();
+    void fitness();
     double get_fitness() const;
-
     unsigned int size() const;
 
     std::vector<double>& solution() const;
@@ -41,21 +40,19 @@ public:
     double distEucl(const Solution& sol) const;
     void normeVecteur();
 
-    double get_accel() const;
-    void set_accel(double accel);
-
     double get_mass() const;
     void set_mass(double mass);
 
+    void moveSolution(double duration);
+
     std::vector <double> get_vecteuraccel() const;
-    void set_vecteuraccel(std::vector <double> vectaccel);
+    void set_vecteuraccel(double accel, int position);
 
 private:
     std::vector<double> d_coord;
     double _current_fitness;
     const Problem& _pbm;
     double _mass;
-    double _accel;
     std::vector <double> _vecteuraccel;
 };
 
