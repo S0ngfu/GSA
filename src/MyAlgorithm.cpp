@@ -145,8 +145,8 @@ void MyAlgorithm::main() {
 
         std::cout<<"Execution "<<runs<<" : "<<best_fitness()<<" "<<worst_fitness()<<std::endl;
 
-		moy_best_fit+= best_fitness();//meilleure fitness de la solution (me souvient plus de la formule);
-	    moy_worst_fit+=worst_fitness();
+		moy_best_fit += worst_fitness();//meilleure fitness de la solution (me souvient plus de la formule);
+	    moy_worst_fit += best_fitness();
     }
     moy_best_fit/=_setup.independent_runs();
     moy_worst_fit/=_setup.independent_runs();
@@ -175,7 +175,7 @@ void MyAlgorithm::updateaccel(double g)
 double MyAlgorithm::gravitationalValue(const Solution &sol1, const Solution &sol2, int i, double g)
 {
     double temp;
-    double random = rand() / RAND_MAX;
+    double random = (double) rand() / (double) RAND_MAX;
     temp = random * g * sol2.get_mass() * (sol2.solution()[i] - sol1.solution()[i]) / sol1.distEucl(sol2);
     return temp;
 }

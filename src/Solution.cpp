@@ -7,6 +7,7 @@
 Solution::Solution(const Problem& pbm) : _pbm{pbm}
 {
 	d_coord.resize(_pbm.dimension());
+	_vecteuraccel.resize(_pbm.dimension());
     initialize();
 }
 
@@ -14,6 +15,7 @@ Solution::Solution(const Solution& sol): _pbm{sol._pbm},
 										 _current_fitness{sol._current_fitness}
 {
 	d_coord.resize(sol.d_coord.size());
+	_vecteuraccel.resize(sol._vecteuraccel.size());
 	d_coord = sol.d_coord;
     _mass = sol._mass;
     _vecteuraccel=sol._vecteuraccel;
@@ -86,7 +88,8 @@ double Solution::distEucl(const Solution& sol) const
 {
 	double distance = 0;
 	for(int i = 0; i < d_coord.size(); ++i)
-		distance += sqrt(pow(d_coord[i],2) - pow(sol.d_coord[i],2));
+		distance += pow(d_coord[i] - sol.d_coord[i],2);
+	distance = sqrt(distance);
     return distance;
 }
 
