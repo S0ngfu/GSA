@@ -3,7 +3,6 @@
 
 MyAlgorithm::MyAlgorithm(const Problem &pbm, const SetUpParams &setup):
 		_setup{setup},
-		_g{_g_const},
 		_mutationProbability{0.1},
 		_crossoverProbability{0.5}
 {
@@ -47,14 +46,27 @@ void MyAlgorithm::initialize()
 }
 
 void MyAlgorithm::evaluate() {
-	_fitness_values.reserve(_setup.population_size());
-	for (int i = 0; i < _setup.population_size(); ++i) {
-		_fitness_values[i].fitness = _solutions[i]->fitness();
-		_fitness_values[i].index = i;
+	for (int i = 0; i < _setup.population_size(); ++i)
+		_solutions[i]->fitness();
+
+	updateCost();
+}
+
+
+void MyAlgorithm::updateCost() {
+	double min, max;
+    min = max = _solutions[0]->get_fitness();
+	for (unsigned int i = 1; i < _setup.population_size(); ++i) {
+		double temp = _solutions[i]->get_fitness();
+		if (temp < min) {
+			min = temp;
+			_lower_cost = i;
+		}
+		else if (temp > max) {
+			max = temp;
+			_upper_cost = i;
+		}
 	}
-    //ToDo -> tri tab particule
-	_upper_cost = 0; //ToDo
-	_lower_cost = _setup.population_size() - 1;//ToDo
 }
 
 const std::vector<Solution*>& MyAlgorithm::solutions() const {
@@ -72,13 +84,9 @@ unsigned int MyAlgorithm::lower_cost() const {
 Solution& MyAlgorithm::solution(const unsigned int index) const {
 	return *_solutions[index];
 }
-        
-std::vector<struct particle>&  MyAlgorithm::fitness_values() {
-	return _fitness_values;
-}
 
 double MyAlgorithm::fitness(const unsigned int index) const {
-	return _solutions[index]->fitness(); //Pas sûr si on regarde l'index du tableau _fitness_values ou l'index du .index du struct
+	return _solutions[index]->fitness();
 }
 
 double MyAlgorithm::best_fitness() const {
@@ -101,8 +109,12 @@ void MyAlgorithm::evolution(int iter) {
 	//Récupération de la meilleure fitness pour cette itération
 	//IL FAUT CORRIGER UPPER/LOWER COST JE COMPRENDS PAS
 
+    evaluate();
 	//Constante G
-	_g = MyAlgorithm::g_update(iter, _setup.nb_evolution_steps());
+	double g = g_update(iter, _setup.nb_evolution_steps());
+
+    // VOIR https://www.researchgate.net/profile/Hossein_Nezamabadi-pour/publication/222853813_GSA_a_Gravitational_Search_Algorithm/links/0912f50645d730966a000000.pdf
+    // PAGE 6
 
 	//https://fr.mathworks.com/matlabcentral/fileexchange/27756-gravitational-search-algorithm--gsa-/content/Gravitational%20Search%20algorithm/GSA.m
 }
@@ -119,8 +131,8 @@ void MyAlgorithm::main() {
         //ToDo : ceci est temporaire, il faut plus opti et faire une fonction dédié à cela
         double best_fit=100000;
         for(int i = 0 ; i < _setup.population_size() ; i++)
-            if(best_fit > _fitness_values[i].fitness)
-                best_fit=_fitness_values[i].fitness;
+            if(best_fit > _solutions[i]->get_fitness())
+                best_fit=_solutions[i]->get_fitness();
 		moy_best_fit+= best_fit;//meilleure fitness de la solution (me souvient plus de la formule);
 	}
     moy_best_fit/=_setup.independent_runs();
@@ -129,6 +141,7 @@ void MyAlgorithm::main() {
 }
 
 double MyAlgorithm::g_update(int iter, int max_iter) const {
-	int alpha = 20;
-	return _g_const * exp(-alpha * (iter / max_iter));
+	const double g=100;
+    int alpha = 20;
+	return g * exp(-alpha * (iter / max_iter));
 }

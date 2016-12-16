@@ -10,24 +10,14 @@
 #include <vector>
 
 
-struct particle // index of a particle in the swarm and its fitness
-{
-	int index;
-	double fitness;
-};
-
-
 class MyAlgorithm
 {
 private:
 	std::vector<Solution*> _solutions;     // individuals in population
-	std::vector<struct particle> _fitness_values;
 	const SetUpParams& _setup;
 	unsigned int _upper_cost,_lower_cost; // lower and upper fitness of individuals in population
 	const double _mutationProbability;
 	const double _crossoverProbability;
-	const double _g_const=100;
-	double _g;
 
 public:
 	MyAlgorithm(const Problem& pbm,const SetUpParams& setup);
@@ -41,12 +31,12 @@ public:
 
 	// creates a array with fitness of all solutions in MyAlgorithm and its position in the MyAlgorithm
 	void evaluate();
+	void updateCost();
 
 	const std::vector<Solution*>& solutions() const;
 	unsigned int upper_cost() const;
 	unsigned int lower_cost() const;
 	Solution& solution(const unsigned int index) const;
-	std::vector<struct particle>&  fitness_values();
 	double fitness(const unsigned int index) const;
 
 
@@ -56,6 +46,7 @@ public:
 	Solution& worst_solution() const;
 	void evolution(int iter); /*makes an evolution step*/
 	double g_update(int iter, int max_iter) const;
+
 
 	void main();
 };
