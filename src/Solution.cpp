@@ -6,8 +6,6 @@
 
 Solution::Solution(const Problem& pbm) : _pbm{pbm}
 {
-	d_coord.resize(_pbm.dimension());
-	_vecteuraccel.resize(_pbm.dimension());
     initialize();
 }
 
@@ -50,12 +48,13 @@ bool operator!= (const Solution& sol) const {
 
 void Solution::initialize()
 {
+	d_coord.resize((unsigned long long int) _pbm.dimension());
 	for (int i = 0; i < d_coord.size(); ++i)
 	{
 		d_coord[i] = (double) rand() / (double) RAND_MAX * (_pbm.UpperLimit - _pbm.LowerLimit) + _pbm.LowerLimit;
 	}
  	_mass = 0;
-    _vecteuraccel.reserve((unsigned long long int) _pbm.dimension());
+    _vecteuraccel.resize((unsigned long long int) _pbm.dimension(),0);
 }
 
 void Solution::fitness() {

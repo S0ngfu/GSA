@@ -156,8 +156,8 @@ void MyAlgorithm::main() {
 }
 
 double MyAlgorithm::g_update(int iter, int max_iter) const {
-	const double g=100;
-    int alpha = 20;
+	const double g=0.01;
+    int alpha = 10;
 	return g * exp(-alpha * (iter / max_iter));
 }
 
@@ -200,5 +200,5 @@ void MyAlgorithm::reduceMass()
 void MyAlgorithm::updatePosition()
 {
     for(int i = 0; i < _setup.population_size(); i++)
-        _solutions[i]->moveSolution(1);
+        _solutions[i]->moveSolution(2);
 }

@@ -18,7 +18,7 @@ int menu()
 
 int main(int argc, char *argv[])
 {
-    Problem problem = Problem(-5,12,30,Rastrigin);
+    Problem problem = Problem(-5,10,30,Rosenbrock);
 
     int choice=menu();
     while(choice != 1)
