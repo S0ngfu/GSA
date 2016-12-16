@@ -43,7 +43,6 @@ int main(int argc, char *argv[])
  * le constructeur par défaut*/
 
     SetUpParams setup = SetUpParams();
-
     MyAlgorithm GSA(problem, setup);
     GSA.main();
 

@@ -2,15 +2,14 @@
 #include "MyAlgorithm.h"
 
 MyAlgorithm::MyAlgorithm(const Problem &pbm, const SetUpParams &setup):
-		_setup{setup},
-		_mutationProbability{0.1},
-		_crossoverProbability{0.5}
+		_setup{setup}
 {
-	_solutions.reserve(_setup.population_size());
+	_solutions.resize(_setup.population_size());
 	for (int i = 0; i < _setup.population_size(); ++i) {
 		Solution *s = new Solution(pbm);
 		_solutions[i] = s;
 	}
+	evaluate();
 }
 
 MyAlgorithm::~MyAlgorithm() {
@@ -55,14 +54,20 @@ void MyAlgorithm::evaluate() {
 
 void MyAlgorithm::updateCost() {
 	double min, max;
-    min = max = _solutions[0]->get_fitness();
-	for (unsigned int i = 1; i < _setup.population_size(); ++i) {
+    min = _solutions[0]->get_fitness();
+	max = _solutions[0]->get_fitness();
+	_lower_cost=0;
+	_upper_cost=0;
+	for (unsigned int i = 1; i < _setup.population_size(); i++)
+	{
 		double temp = _solutions[i]->get_fitness();
-		if (temp < min) {
+		if (temp <= min)
+		{
 			min = temp;
 			_lower_cost = i;
 		}
-		else if (temp > max) {
+		else if (temp >= max)
+		{
 			max = temp;
 			_upper_cost = i;
 		}
@@ -170,7 +175,6 @@ void MyAlgorithm::updateaccel(double g)
 double MyAlgorithm::gravitationalValue(const Solution &sol1, const Solution &sol2, int i, double g)
 {
     double temp;
-    srand((unsigned int) time(NULL));
     double random = rand() / RAND_MAX;
     temp = random * g * sol2.get_mass() * (sol2.solution()[i] - sol1.solution()[i]) / sol1.distEucl(sol2);
     return temp;
@@ -178,8 +182,8 @@ double MyAlgorithm::gravitationalValue(const Solution &sol1, const Solution &sol
 
 void MyAlgorithm::updateMass()
 {
-    double best_fit = _solutions[lower_cost()]->get_fitness();
-    double worst_fit = _solutions[upper_cost()]->get_fitness();
+    double best_fit = best_fitness();
+    double worst_fit = worst_fitness();
     for(int i = 0; i < _setup.population_size(); i++)
         _solutions[i]->set_mass((_solutions[i]->get_fitness() - worst_fit) / (best_fit - worst_fit));
 }

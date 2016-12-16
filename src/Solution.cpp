@@ -6,13 +6,14 @@
 
 Solution::Solution(const Problem& pbm) : _pbm{pbm}
 {
+	d_coord.resize(_pbm.dimension());
     initialize();
 }
 
 Solution::Solution(const Solution& sol): _pbm{sol._pbm},
 										 _current_fitness{sol._current_fitness}
 {
-	d_coord.reserve(sol.d_coord.size());
+	d_coord.resize(sol.d_coord.size());
 	d_coord = sol.d_coord;
     _mass = sol._mass;
     _vecteuraccel=sol._vecteuraccel;
@@ -45,9 +46,12 @@ bool operator!= (const Solution& sol) const {
 	//toDo
 }*/
 
-void Solution::initialize() {
-	for (int i = 0; i < d_coord.size(); ++i) 
-		d_coord[i] = rand() % static_cast<int>((_pbm.UpperLimit - _pbm.LowerLimit)) + _pbm.LowerLimit;
+void Solution::initialize()
+{
+	for (int i = 0; i < d_coord.size(); ++i)
+	{
+		d_coord[i] = (double) rand() / (double) RAND_MAX * (_pbm.UpperLimit - _pbm.LowerLimit) + _pbm.LowerLimit;
+	}
  	_mass = 0;
     _vecteuraccel.reserve((unsigned long long int) _pbm.dimension());
 }
