@@ -39,6 +39,7 @@ public:
     void position(const int index, const double value);
     
     double distEucl(const Solution& sol) const;
+    void normeVecteur();
 
     double get_accel() const;
     void set_accel(double accel);
@@ -46,12 +47,16 @@ public:
     double get_mass() const;
     void set_mass(double mass);
 
+    std::vector <double> get_vecteuraccel() const;
+    void set_vecteuraccel(std::vector <double> vectaccel);
+
 private:
     std::vector<double> d_coord;
     double _current_fitness;
     const Problem& _pbm;
     double _mass;
     double _accel;
+    std::vector <double> _vecteuraccel;
 };
 
 

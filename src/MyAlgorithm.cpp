@@ -111,7 +111,6 @@ void MyAlgorithm::main() {
     double moy_best_fit=0.0;
 	for(int runs=0 ; runs < _setup.independent_runs() ; runs++)
 	{
-		initialize();
 		for(int iter=0 ; iter < _setup.nb_evolution_steps() ; iter++)
 		{
 			evolution(iter);

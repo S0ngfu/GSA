@@ -4,13 +4,19 @@
 
 #include "Solution.h"
 
-Solution::Solution(const Problem& pbm) : _pbm{pbm} {}
+Solution::Solution(const Problem& pbm) : _pbm{pbm}
+{
+    initialize();
+}
 
 Solution::Solution(const Solution& sol): _pbm{sol._pbm},
 										 _current_fitness{sol._current_fitness}
 {
 	d_coord.reserve(sol.d_coord.size());
 	d_coord = sol.d_coord;
+    _mass = 0;
+    _accel=sol._accel;
+    _vecteuraccel=sol._vecteuraccel;
 }
 
 /*
@@ -46,6 +52,8 @@ void Solution::initialize() {
 		d_coord[i] = rand() % static_cast<int>((_pbm.UpperLimit - _pbm.LowerLimit)) + _pbm.LowerLimit;
 
  	_mass = rand() / RAND_MAX;
+    _accel = 0;
+    _vecteuraccel.reserve((unsigned long long int) _pbm.dimension());
 }
 
 double Solution::fitness() {
@@ -80,6 +88,7 @@ double Solution::distEucl(const Solution& sol) const
 	double distance = 0;
 	for(int i = 0; i < d_coord.size(); ++i)
 		distance += sqrt(pow(d_coord[i],2) - pow(sol.d_coord[i],2));
+    return distance;
 }
 
 double Solution::get_accel() const {
@@ -96,4 +105,25 @@ double Solution::get_mass() const {
 
 void Solution::set_mass(double mass) {
 	_mass=mass;
+}
+
+void Solution::normeVecteur()
+{
+    double temp = 0;
+    for(int i = 0; i < _pbm.dimension(); i++)
+        temp += pow(_vecteuraccel[i], 2);
+    temp = sqrt(temp);
+    for(int i = 0; i < _pbm.dimension(); i++)
+        _vecteuraccel[i] /= temp;
+}
+
+std::vector<double> Solution::get_vecteuraccel() const
+{
+    return _vecteuraccel;
+}
+
+void Solution::set_vecteuraccel(std::vector<double> vectaccel)
+{
+    for(int i = 0; i < _pbm.dimension(); i++)
+        _vecteuraccel[i] = vectaccel[i];
 }
