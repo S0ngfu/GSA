@@ -55,12 +55,13 @@ void MyAlgorithm::evaluate() {
 void MyAlgorithm::updateCost() {
 	double min, max;
     min = _solutions[0]->get_fitness();
-	max = _solutions[0]->get_fitness();
+	max = min;
 	_lower_cost=0;
 	_upper_cost=0;
+	double temp;
 	for (unsigned int i = 1; i < _setup.population_size(); i++)
 	{
-		double temp = _solutions[i]->get_fitness();
+		temp = _solutions[i]->get_fitness();
 		if (temp <= min)
 		{
 			min = temp;
@@ -95,19 +96,19 @@ void MyAlgorithm::fitness(const unsigned int index) const {
 }
 
 double MyAlgorithm::best_fitness() const {
-	return _solutions[_upper_cost]->get_fitness();
-}
-
-double MyAlgorithm::worst_fitness() const {
 	return _solutions[_lower_cost]->get_fitness();
 }
 
+double MyAlgorithm::worst_fitness() const {
+	return _solutions[_upper_cost]->get_fitness();
+}
+
 Solution& MyAlgorithm::best_solution() const {
-	return *_solutions[_upper_cost];
+	return *_solutions[_lower_cost];
 }
 
 Solution& MyAlgorithm::worst_solution() const {
-	return *_solutions[_lower_cost];
+	return *_solutions[_upper_cost];
 }
 
 void MyAlgorithm::evolution(int iter) {
@@ -132,7 +133,7 @@ void MyAlgorithm::evolution(int iter) {
 void MyAlgorithm::main() {
     double moy_best_fit=0.0;
     double moy_worst_fit=0.0;
-    std::cout<<"          best      worst"<<std::endl;
+    std::cout<<"              best         worst"<<std::endl;
 	for(int runs=0 ; runs < _setup.independent_runs() ; runs++)
 	{
         initialize();
@@ -145,8 +146,8 @@ void MyAlgorithm::main() {
 
         std::cout<<"Execution "<<runs<<" : "<<best_fitness()<<" "<<worst_fitness()<<std::endl;
 
-		moy_best_fit += worst_fitness();//meilleure fitness de la solution (me souvient plus de la formule);
-	    moy_worst_fit += best_fitness();
+		moy_best_fit += best_fitness();//meilleure fitness de la solution (me souvient plus de la formule);
+	    moy_worst_fit += worst_fitness();
     }
     moy_best_fit/=_setup.independent_runs();
     moy_worst_fit/=_setup.independent_runs();
@@ -156,9 +157,9 @@ void MyAlgorithm::main() {
 }
 
 double MyAlgorithm::g_update(int iter, int max_iter) const {
-	const double g=0.01;
+	const double g = 0.0043	;
     int alpha = 10;
-	return g * exp(-alpha * (iter / max_iter));
+	return (g * exp(-alpha * iter / max_iter));
 }
 
 void MyAlgorithm::updateaccel(double g)
@@ -200,5 +201,5 @@ void MyAlgorithm::reduceMass()
 void MyAlgorithm::updatePosition()
 {
     for(int i = 0; i < _setup.population_size(); i++)
-        _solutions[i]->moveSolution(2);
+        _solutions[i]->moveSolution(1);
 }

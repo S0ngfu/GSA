@@ -10,7 +10,7 @@ int menu()
     int input;
     do
     {
-        std::cout<<"1 - Run\n2 - Change benchmark\n 3 - Quit"<<std::endl;
+        std::cout<<"1 - Run\n2 - Change benchmark\n3 - Quit"<<std::endl;
         std::cin>>input;
     } while(input<1 && input>3);
     return input;
