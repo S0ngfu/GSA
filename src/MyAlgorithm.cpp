@@ -179,7 +179,7 @@ double MyAlgorithm::gravitationalValue(const Solution &sol1, const Solution &sol
 {
     double temp;
     double random = (double) rand() / (double) RAND_MAX;
-    temp = random * g * sol2.get_mass() * (sol2.solution()[i] - sol1.solution()[i]) / sol1.distEucl(sol2);
+    temp = random * g * sol2.get_mass() * (sol2.get_coord()[i] - sol1.get_coord()[i]) / sol1.distEucl(sol2);
     return temp;
 }
 

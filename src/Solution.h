@@ -32,7 +32,7 @@ public:
     double get_fitness() const;
     unsigned int size() const;
 
-    std::vector<double>& solution() const;
+    std::vector<double>& get_coord() const;
 
     double& position(const int index); //retournera une position du tableau d_coord
     void position(const int index, const double value);

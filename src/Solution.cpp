@@ -69,7 +69,7 @@ unsigned int Solution::size() const {
 	return static_cast<unsigned int>(d_coord.size());
 }
 
-std::vector<double>& Solution::solution() const
+std::vector<double>& Solution::get_coord() const
 {
 	return (std::vector<double>&) d_coord;
 }
