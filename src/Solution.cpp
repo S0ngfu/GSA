@@ -92,12 +92,14 @@ double Solution::distEucl(const Solution& sol) const
     return distance;
 }
 
-double Solution::get_mass() const {
+double Solution::get_mass() const
+{
 	return _mass;
 }
 
-void Solution::set_mass(double mass) {
-	_mass=mass;
+void Solution::set_mass(double mass) 
+{
+	_mass = mass;
 }
 
 void Solution::normeVecteur()
@@ -117,7 +119,7 @@ std::vector<double> Solution::get_vecteuraccel() const
 
 void Solution::set_vecteuraccel(double accel, int position)
 {
-        _vecteuraccel[position] += /*(double) rand() / (double) RAND_MAX **/ accel / _mass;
+        _vecteuraccel[position] += /*(double) rand() / (double) RAND_MAX **/ accel;
 }
 
 void Solution::moveSolution(double duration)

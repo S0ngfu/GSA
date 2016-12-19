@@ -12,7 +12,8 @@ MyAlgorithm::MyAlgorithm(const Problem &pbm, const SetUpParams &setup):
 	evaluate();
 }
 
-MyAlgorithm::~MyAlgorithm() {
+MyAlgorithm::~MyAlgorithm() 
+{
 	for (int i = 0; i < _setup.population_size(); ++i)
 		delete _solutions[i];
 }
@@ -34,7 +35,8 @@ MyAlgorithm& MyAlgorithm::operator= (const MyAlgorithm& myAlgo) {
 }
 */
 
-const SetUpParams& MyAlgorithm::setup() const {
+const SetUpParams& MyAlgorithm::setup() const 
+{
 	return _setup;
 }
 
@@ -44,7 +46,8 @@ void MyAlgorithm::initialize()
         _solutions[i]->initialize();
 }
 
-void MyAlgorithm::evaluate() {
+void MyAlgorithm::evaluate() 
+{
 	for (int i = 0; i < _setup.population_size(); ++i)
 		_solutions[i]->fitness();
 
@@ -52,7 +55,8 @@ void MyAlgorithm::evaluate() {
 }
 
 
-void MyAlgorithm::updateCost() {
+void MyAlgorithm::updateCost() 
+{
 	double min, max;
     min = _solutions[0]->get_fitness();
 	max = min;
@@ -75,23 +79,28 @@ void MyAlgorithm::updateCost() {
 	}
 }
 
-const std::vector<Solution*>& MyAlgorithm::solutions() const {
+const std::vector<Solution*>& MyAlgorithm::solutions() const 
+{
 	return _solutions;
 }
 
-unsigned int MyAlgorithm::upper_cost() const {
+unsigned int MyAlgorithm::upper_cost() const 
+{
 	return _upper_cost;
 }
 		
-unsigned int MyAlgorithm::lower_cost() const {
+unsigned int MyAlgorithm::lower_cost() const 
+{
 	return _lower_cost;
 }
 
-Solution& MyAlgorithm::solution(const unsigned int index) const {
+Solution& MyAlgorithm::solution(const unsigned int index) const 
+{
 	return *_solutions[index];
 }
 
-void MyAlgorithm::fitness(const unsigned int index) const {
+void MyAlgorithm::fitness(const unsigned int index) const 
+{
 	_solutions[index]->fitness();
 }
 
@@ -119,11 +128,9 @@ void MyAlgorithm::evolution(int iter)
 {
 	//Récupération de la meilleure fitness pour cette itération
 	//IL FAUT CORRIGER UPPER/LOWER COST JE COMPRENDS PAS, IDA TG T NUL
-
     evaluate();
 	//Constante G
 	double g = g_update(iter, _setup.nb_evolution_steps());
-
     updateMass();
     reduceMass();
     updateaccel(g);    	
@@ -162,7 +169,8 @@ void MyAlgorithm::main()
     //Affichage de la moyenne des meilleures fitness.
 }
 
-double MyAlgorithm::g_update(int iter, int max_iter) const {
+double MyAlgorithm::g_update(int iter, int max_iter) const 
+{
 	const double g = 10;
     int alpha = 20;
 	return (g * exp(-alpha * iter / max_iter));
@@ -173,17 +181,17 @@ void MyAlgorithm::updateaccel(double g)
     for(int i = 0; i < _setup.population_size(); i++)
     {
         for (int j = 0; j < _setup.population_size(); j++)
-            if(i != j)
+        	if(i != j)
                 for(int k = 0; k < _setup.solution_size(); k++)
                     _solutions[i]->set_vecteuraccel(gravitationalValue(*_solutions[i], *_solutions[j], k, g), k);
-    solutions()[i]->normeVecteur();
+    	solutions()[i]->normeVecteur();
 	}
 }
 
 double MyAlgorithm::gravitationalValue(const Solution &sol1, const Solution &sol2, int i, double g)
 {
     double random = (double) rand() / (double) RAND_MAX;
-    double temp = random * g * sol1.get_mass() * sol2.get_mass() * (sol2.get_coord()[i] - sol1.get_coord()[i]) / sol1.distEucl(sol2);
+    double temp = random * g * sol2.get_mass() * (sol2.get_coord()[i] - sol1.get_coord()[i]) / sol1.distEucl(sol2);
     return temp;
 }
 
