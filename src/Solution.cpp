@@ -102,8 +102,8 @@ void Solution::set_mass(double mass) {
 
 void Solution::normeVecteur()
 {
-    double temp = 0;
-    for(int i = 0; i < _pbm.dimension(); i++)
+    double temp = pow(_vecteuraccel[0], 2);
+    for(int i = 1; i < _pbm.dimension(); i++)
         temp += pow(_vecteuraccel[i], 2);
     temp = sqrt(temp);
     for(int i = 0; i < _pbm.dimension(); i++)
@@ -117,7 +117,7 @@ std::vector<double> Solution::get_vecteuraccel() const
 
 void Solution::set_vecteuraccel(double accel, int position)
 {
-        _vecteuraccel[position] += /*(double) rand() / (double) RAND_MAX **/ accel;
+        _vecteuraccel[position] += /*(double) rand() / (double) RAND_MAX **/ accel / _mass;
 }
 
 void Solution::moveSolution(double duration)

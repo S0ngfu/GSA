@@ -56,8 +56,8 @@ void MyAlgorithm::updateCost() {
 	double min, max;
     min = _solutions[0]->get_fitness();
 	max = min;
-	_lower_cost=0;
-	_upper_cost=0;
+	_lower_cost = 0;
+	_upper_cost = 0;
 	double temp;
 	for (unsigned int i = 1; i < _setup.population_size(); i++)
 	{
@@ -67,7 +67,7 @@ void MyAlgorithm::updateCost() {
 			min = temp;
 			_lower_cost = i;
 		}
-		else if (temp >= max)
+		if (temp >= max)
 		{
 			max = temp;
 			_upper_cost = i;
@@ -95,23 +95,28 @@ void MyAlgorithm::fitness(const unsigned int index) const {
 	_solutions[index]->fitness();
 }
 
-double MyAlgorithm::best_fitness() const {
+double MyAlgorithm::best_fitness() const
+{
 	return _solutions[_lower_cost]->get_fitness();
 }
 
-double MyAlgorithm::worst_fitness() const {
+double MyAlgorithm::worst_fitness() const
+{
 	return _solutions[_upper_cost]->get_fitness();
 }
 
-Solution& MyAlgorithm::best_solution() const {
+Solution& MyAlgorithm::best_solution() const
+{
 	return *_solutions[_lower_cost];
 }
 
-Solution& MyAlgorithm::worst_solution() const {
+Solution& MyAlgorithm::worst_solution() const
+{
 	return *_solutions[_upper_cost];
 }
 
-void MyAlgorithm::evolution(int iter) {
+void MyAlgorithm::evolution(int iter)
+{
 	//Récupération de la meilleure fitness pour cette itération
 	//IL FAUT CORRIGER UPPER/LOWER COST JE COMPRENDS PAS, IDA TG T NUL
 
@@ -177,9 +182,8 @@ void MyAlgorithm::updateaccel(double g)
 
 double MyAlgorithm::gravitationalValue(const Solution &sol1, const Solution &sol2, int i, double g)
 {
-    double temp;
     double random = (double) rand() / (double) RAND_MAX;
-    temp = random * g * sol2.get_mass() * (sol2.get_coord()[i] - sol1.get_coord()[i]) / sol1.distEucl(sol2);
+    double temp = random * g * sol1.get_mass() * sol2.get_mass() * (sol2.get_coord()[i] - sol1.get_coord()[i]) / sol1.distEucl(sol2);
     return temp;
 }
 
@@ -193,8 +197,8 @@ void MyAlgorithm::updateMass()
 
 void MyAlgorithm::reduceMass()
 {
-    double temp = 0;
-    for(int i = 0; i < _setup.population_size(); i++)
+    double temp = _solutions[0]->get_mass();
+    for(int i = 1; i < _setup.population_size(); i++)
         temp += _solutions[i]->get_mass();
     for(int i = 0; i < _setup.population_size(); i++)
         _solutions[i]->set_mass(_solutions[i]->get_mass() / temp);
@@ -203,5 +207,5 @@ void MyAlgorithm::reduceMass()
 void MyAlgorithm::updatePosition()
 {
     for(int i = 0; i < _setup.population_size(); i++)
-        _solutions[i]->moveSolution(1);
+        _solutions[i]->moveSolution(2);
 }
