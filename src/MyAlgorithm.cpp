@@ -121,7 +121,7 @@ void MyAlgorithm::evolution(int iter) {
 
     updateMass();
     reduceMass();
-    updateaccel(g);
+    updateaccel(g);    	
     updatePosition();
 
     // VOIR https://www.researchgate.net/profile/Hossein_Nezamabadi-pour/publication/222853813_GSA_a_Gravitational_Search_Algorithm/links/0912f50645d730966a000000.pdf
@@ -130,7 +130,8 @@ void MyAlgorithm::evolution(int iter) {
 	//https://fr.mathworks.com/matlabcentral/fileexchange/27756-gravitational-search-algorithm--gsa-/content/Gravitational%20Search%20algorithm/GSA.m
 }
 
-void MyAlgorithm::main() {
+void MyAlgorithm::main() 
+{
     double moy_best_fit=0.0;
     double moy_worst_fit=0.0;
     std::cout<<"              best         worst"<<std::endl;
@@ -140,7 +141,7 @@ void MyAlgorithm::main() {
 		for(int iter=0 ; iter < _setup.nb_evolution_steps() ; iter++)
 		{
 			evolution(iter);
-
+			std::cout << "Evolution " << iter << " : " << best_fitness() << std::endl;
 		}
 		evaluate();
 
@@ -157,8 +158,8 @@ void MyAlgorithm::main() {
 }
 
 double MyAlgorithm::g_update(int iter, int max_iter) const {
-	const double g = 0.0043	;
-    int alpha = 10;
+	const double g = 10;
+    int alpha = 20;
 	return (g * exp(-alpha * iter / max_iter));
 }
 
@@ -170,7 +171,8 @@ void MyAlgorithm::updateaccel(double g)
             if(i != j)
                 for(int k = 0; k < _setup.solution_size(); k++)
                     _solutions[i]->set_vecteuraccel(gravitationalValue(*_solutions[i], *_solutions[j], k, g), k);
-    }
+    solutions()[i]->normeVecteur();
+	}
 }
 
 double MyAlgorithm::gravitationalValue(const Solution &sol1, const Solution &sol2, int i, double g)
