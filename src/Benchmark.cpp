@@ -3,8 +3,6 @@
 
 #include "Benchmark.h"
 
-const double PI = 3.14159265359;
-
 double Rosenbrock(const std::vector<double>& coord)
 {
 	double sum = 0;
@@ -17,7 +15,7 @@ double Rastrigin(const std::vector<double>& coord)
 {
 	double sum = 0;
 	for (int i = 0; i < coord.size(); ++i)
-		sum += pow(coord[i], 2) - 10 * cos(2 * PI * coord[i] );
+		sum += pow(coord[i], 2) - 10 * cos(2 * M_PI * coord[i] );
 	sum += 10 * coord.size();
 	return sum;
 }
@@ -30,7 +28,7 @@ double Ackley(const std::vector<double>& coord)
 	for(int i = 0; i < coord.size(); ++i)
 	{
 		sum1 += pow(coord[i], 2);
-		sum2 += cos(2 * PI * coord[i]);
+		sum2 += cos(2 * M_PI * coord[i]);
 	}
 	sum = -20 * exp(-0.2 * sqrt((1 / 30) * sum1)) - exp((1 / 30) * sum2) + 20 + exp(1);
 	return sum;
@@ -59,6 +57,6 @@ double Weierstrass(const std::vector<double>& coord)
 	double sum = 0;
 	for(int j = 0; j < 50; ++j)
 		for(int i = 0; i < coord.size(); ++i)
-			sum += pow(0.5, j) * cos(pow(12, j) * PI * coord[i]);
+			sum += pow(0.5, j) * cos(pow(12, j) * M_PI * coord[i]);
 	return sum;
 }

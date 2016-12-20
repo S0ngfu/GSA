@@ -44,39 +44,14 @@ void MyAlgorithm::initialize()
 {
 	for (int i = 0; i < _setup.population_size(); ++i)
         _solutions[i]->initialize();
+    _lower_cost = 0;
+	_upper_cost = 29;
 }
 
 void MyAlgorithm::evaluate() 
 {
 	for (int i = 0; i < _setup.population_size(); ++i)
 		_solutions[i]->fitness();
-
-	updateCost();
-}
-
-
-void MyAlgorithm::updateCost() 
-{
-	double min, max;
-    min = _solutions[0]->get_fitness();
-	max = min;
-	_lower_cost = 0;
-	_upper_cost = 0;
-	double temp;
-	for (unsigned int i = 1; i < _setup.population_size(); i++)
-	{
-		temp = _solutions[i]->get_fitness();
-		if (temp <= min)
-		{
-			min = temp;
-			_lower_cost = i;
-		}
-		if (temp >= max)
-		{
-			max = temp;
-			_upper_cost = i;
-		}
-	}
 }
 
 const std::vector<Solution*>& MyAlgorithm::solutions() const 
@@ -129,11 +104,14 @@ void MyAlgorithm::evolution(int iter)
 	//Récupération de la meilleure fitness pour cette itération
 	//IL FAUT CORRIGER UPPER/LOWER COST JE COMPRENDS PAS, IDA TG T NUL
     evaluate();
+    quickSort(0, _setup.population_size());
+    //Meilleurs individus K
+    unsigned int kbest = kBest(iter, _setup.nb_evolution_steps());
 	//Constante G
 	double g = g_update(iter, _setup.nb_evolution_steps());
     updateMass();
     reduceMass();
-    updateaccel(g);    	
+    updateaccel(g, kbest);    	
     updatePosition();
 
     // VOIR https://www.researchgate.net/profile/Hossein_Nezamabadi-pour/publication/222853813_GSA_a_Gravitational_Search_Algorithm/links/0912f50645d730966a000000.pdf
@@ -176,11 +154,11 @@ double MyAlgorithm::g_update(int iter, int max_iter) const
 	return (g * exp(-alpha * iter / max_iter));
 }
 
-void MyAlgorithm::updateaccel(double g)
+void MyAlgorithm::updateaccel(double g, unsigned int kbest)
 {
     for(int i = 0; i < _setup.population_size(); i++)
     {
-        for (int j = 0; j < _setup.population_size(); j++)
+        for (int j = 0; j < kbest; j++)
         	if(i != j)
                 for(int k = 0; k < _setup.solution_size(); k++)
                     _solutions[i]->set_vecteuraccel(gravitationalValue(*_solutions[i], *_solutions[j], k, g), k);
@@ -191,7 +169,7 @@ void MyAlgorithm::updateaccel(double g)
 double MyAlgorithm::gravitationalValue(const Solution &sol1, const Solution &sol2, int i, double g)
 {
     double random = (double) rand() / (double) RAND_MAX;
-    double temp = random * g * sol2.get_mass() * (sol2.get_coord()[i] - sol1.get_coord()[i]) / sol1.distEucl(sol2);
+    double temp = random * g * sol1.get_mass() * sol2.get_mass() * (sol2.get_coord()[i] - sol1.get_coord()[i]) / sol1.distEucl(sol2);
     return temp;
 }
 
@@ -215,5 +193,36 @@ void MyAlgorithm::reduceMass()
 void MyAlgorithm::updatePosition()
 {
     for(int i = 0; i < _setup.population_size(); i++)
-        _solutions[i]->moveSolution(2);
+        _solutions[i]->moveSolution(0.5);
+}
+
+void MyAlgorithm::quickSort(int gauche, int droite)
+{
+	int r;
+	if(gauche < droite) 
+	{
+		r = partition(gauche, droite);
+		quickSort(gauche, r);
+		quickSort(r+1, droite);
+	}
+}
+
+int MyAlgorithm::partition(int gauche, int droite)
+{   double x = _solutions[gauche]->get_fitness();
+    int i = gauche;
+	int j;
+	for(j = gauche+1; j < droite; j++)
+	if (_solutions[j]->get_fitness() <= x)
+	{
+		i = i+1;
+		std::swap(_solutions[i], _solutions[j]);
+	}
+	std::swap(_solutions[i], _solutions[gauche]);
+    return i;
+}
+
+unsigned int MyAlgorithm::kBest(int iter, int max_iter) const
+{
+	unsigned int k = _setup.population_size() - 1;
+	return (trunc((k * (max_iter - iter + 1) / (static_cast <double>(max_iter)) + 1)));
 }

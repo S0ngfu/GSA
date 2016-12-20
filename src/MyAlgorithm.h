@@ -38,15 +38,18 @@ public:
 	unsigned int lower_cost() const;
 	Solution& solution(const unsigned int index) const;
 	void fitness(const unsigned int index) const;
-
+	void quickSort(int gauche, int droite);
+	int partition(int gauche, int droite);
+	
     double gravitationalValue(const Solution &sol1, const Solution &sol2, int i, double g);
-    void updateaccel(double g);
+    void updateaccel(double g, unsigned int kbest);
 	double best_fitness() const;
 	double worst_fitness() const;
 	Solution& best_solution() const;
 	Solution& worst_solution() const;
 	void evolution(int iter); /*makes an evolution step*/
 	double g_update(int iter, int max_iter) const;
+	unsigned int kBest(int iter, int max_tier) const;
 
 
 	void main();
