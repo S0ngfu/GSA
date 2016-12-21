@@ -122,7 +122,8 @@ std::vector<double> Solution::get_vecteuraccel() const
 
 void Solution::set_vecteuraccel(double accel, int position)
 {
-        _vecteuraccel[position] += static_cast <double> (rand()) * static_cast <double> (RAND_MAX) * accel;
+	if( _mass != 0)
+        _vecteuraccel[position] += static_cast <double> (rand()) * static_cast <double> (RAND_MAX) * accel / _mass;
 }
 
 void Solution::moveSolution(double duration)

@@ -5,7 +5,7 @@
 #include "SetUpParams.h"
 
 SetUpParams::SetUpParams():_independent_runs{1},
-                           _nb_evolution_steps{200},
+                           _nb_evolution_steps{500},
                            _population_size{30},
                            _solution_size{30}
 {

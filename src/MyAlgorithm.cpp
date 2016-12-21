@@ -223,6 +223,6 @@ int MyAlgorithm::partition(int gauche, int droite)
 
 unsigned int MyAlgorithm::kBest(int iter, int max_iter) const
 {
-	unsigned int k = _setup.population_size() - 1;
-	return (trunc((k * (max_iter - iter + 1) / (static_cast <double>(max_iter)) + 1)));
+	unsigned int k = _setup.population_size() - 5;
+	return (trunc((k * (max_iter - iter + 1) / (static_cast <double>(max_iter)) + 5)));
 }
