@@ -27,6 +27,8 @@ public:
     double LowerLimit, UpperLimit;
     Fonction function() const;
 
+    void switchBenchmark();
+    //ToDo Fonction pour changer la dimension ?
 private:
     int _dimension;
     Fonction _fonction;

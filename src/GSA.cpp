@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
             default:
                 break;
             case 2:
-                //ToDo problem.switchBenchmark();
+                problem.switchBenchmark();
                 break;
             case 3:
                 std::exit;
