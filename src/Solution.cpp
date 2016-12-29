@@ -1,7 +1,3 @@
-//
-// Created by Songfu on 24/11/2016.
-//
-
 #include "Solution.h"
 
 Solution::Solution(const Problem& pbm) : _pbm{pbm}
@@ -74,15 +70,6 @@ std::vector<double>& Solution::get_coord() const
 	return (std::vector<double>&) d_coord;
 }
 
-double& Solution::position(const int index) //retournera une position du tableau d_coord
-{
-	return d_coord[index];
-}
-
-void Solution::position(const int index, const double value) {
-    d_coord[index]=value;
-}
-
 double Solution::distEucl(const Solution& sol) const
 {
 	double distance = 0;
@@ -113,11 +100,6 @@ void Solution::normeVecteur()
     	for(int i = 0; i < _pbm.dimension(); i++)
         	_vecteuraccel[i] /= temp;
     }
-}
-
-std::vector<double> Solution::get_vecteuraccel() const
-{
-    return _vecteuraccel;
 }
 
 void Solution::set_vecteuraccel(double accel, int position)

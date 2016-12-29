@@ -1,4 +1,3 @@
-
 #include "MyAlgorithm.h"
 
 MyAlgorithm::MyAlgorithm(const Problem &pbm, const SetUpParams &setup):
@@ -72,11 +71,6 @@ unsigned int MyAlgorithm::lower_cost() const
 Solution& MyAlgorithm::solution(const unsigned int index) const 
 {
 	return *_solutions[index];
-}
-
-void MyAlgorithm::fitness(const unsigned int index) const 
-{
-	_solutions[index]->fitness();
 }
 
 double MyAlgorithm::best_fitness() const
@@ -224,5 +218,5 @@ int MyAlgorithm::partition(int gauche, int droite)
 unsigned int MyAlgorithm::kBest(int iter, int max_iter) const
 {
 	unsigned int k = _setup.population_size() - 5;
-	return (trunc((k * (max_iter - iter + 1) / (static_cast <double>(max_iter)) + 5)));
+	return (unsigned int) (trunc((k * (max_iter - iter + 1) / (static_cast <double>(max_iter)) + 5)));
 }

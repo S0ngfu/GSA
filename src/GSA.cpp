@@ -1,7 +1,3 @@
-//
-// Created by Simon on 16/11/2016.
-//
-
 #include "MyAlgorithm.h"
 #include "Benchmark.h"
 
@@ -42,7 +38,7 @@ int main(int argc, char *argv[])
  * ne contient pas les paramètres sous la bonne forme, il appel
  * le constructeur par défaut*/
 
-    SetUpParams setup = SetUpParams();
+    SetUpParams setup = SetUpParams(1, 2000, 30, 30);
     MyAlgorithm GSA(problem, setup);
     GSA.main();
 
