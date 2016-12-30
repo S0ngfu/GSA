@@ -81,26 +81,26 @@ public:
 
 	///
 	/// \brief Retourne une solution de la population
-	/// \param index : Indice de la solution
+	/// \param[in] index : Indice de la solution
 	/// \return Une solution
 	Solution& solution(const unsigned int index) const;
 
 	///
 	/// \brief Permet de trier le vecteur de solution
-	/// \param gauche : Extrémité gauche du tableau que l'on veut trier
-	/// \param droite : Extrémité droite du tableau que l'on veut trier
+	/// \param[in] gauche : ExtrÃ©mitÃ© gauche du tableau que l'on veut trier
+	/// \param[in] droite : ExtrÃ©mitÃ© droite du tableau que l'on veut trier
 	void quickSort(int gauche, int droite);
 	
 	///
 	/// \brief Fonction auxiliaire pour la fonction quickSort
-	/// \param gauche : Extrémité gauche du tableau que l'on veut trier
-	/// \param droite
+	/// \param[in] gauche : ExtrÃ©mitÃ© gauche du tableau que l'on veut trier
+	/// \param[in] droite
 	int partition(int gauche, int droite);
 
 	///
-	/// \brief Modifie l'accélération de toutes les solutions en utilisant la formule de gravitation
-	/// \param iter : Indice de l'évolution actuelle de l'exécution
-	/// \param kbest : Les K meilleures solutions qui vont affecter les autres
+	/// \brief Modifie l'accÃ©lÃ©ration de toutes les solutions en utilisant la formule de gravitation
+	/// \param[in] iter : Indice de l'Ã©volution actuelle de l'exÃ©cution
+	/// \param[in] kbest : Les K meilleures solutions qui vont affecter les autres
     void updateAccel(int iter, unsigned int kbest);
     
     ///
@@ -120,20 +120,20 @@ public:
 	Solution& worst_solution() const;
 	
 	///
-	/// \brief Fait une évolution
-	/// \param iter : Indice de l'évolution actuelle de l'exécution
+	/// \brief Fait une Ã©volution
+	/// \param[in] iter : Indice de l'Ã©volution actuelle de l'exÃ©cution
 	void evolution(int iter);
 	
 	///
 	/// \brief Retourne la pire solution
-	/// \param iter : Indice de l'évolution actuelle de l'exécution
-	/// \param max_iter : Indice de la dernière évolution de l'exécution
+	/// \param[in] iter : Indice de l'Ã©volution actuelle de l'exÃ©cution
+	/// \param[in] max_iter : Indice de la derniÃ¨re Ã©volution de l'exÃ©cution
 	double gUpdate(int iter, int max_iter) const;
 	
 	///
 	/// \brief Retourne les K meilleures solutions qui vont affecter les autres
-	/// \param iter : Indice de l'évolution actuelle de l'exécution
-	/// \param max_iter : Indice de la dernière évolution de l'exécution
+	/// \param[in] iter : Indice de l'Ã©volution actuelle de l'exÃ©cution
+	/// \param[in] max_iter : Indice de la derniÃ¨re Ã©volution de l'exÃ©cution
 	unsigned int kBest(int iter, int max_tier) const;
 
 	///

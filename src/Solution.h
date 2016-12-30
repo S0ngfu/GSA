@@ -89,10 +89,10 @@ public:
     void set_vecteuraccel(const Solution& sol, double g);
 
     ///
-    /// \brief Calcule la force de gravitation d'une composante par rapport à un individu
-    /// \param sol
-    /// \param i
-    /// \param g
+    /// \brief Calcule la force de gravitation d'une composante par rapport Ã  un individu
+    /// \param[in] sol
+    /// \param[in] i
+    /// \param[in] g
     /// \return Force gravitationnelle
     double gravitationalValue(const Solution& sol, int i, double g);
 private:

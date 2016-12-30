@@ -24,10 +24,10 @@ public:
     ///
     /// \brief Constructeur
     /// Constructeur de la classe SetUpParams
-    /// \param runs : Nombre d'éxécution de l'algorithme
-    /// \param steps : Nombre d'évolution pour chaque éxécution
-    /// \param pop_size : Taille de la population
-    /// \param sol_size : Dimension du problème
+    /// \param[in] runs : Nombre d'éxécution de l'algorithme
+    /// \param[in] steps : Nombre d'évolution pour chaque éxécution
+    /// \param[in] pop_size : Taille de la population
+    /// \param[in] sol_size : Dimension du problème
     SetUpParams (unsigned int runs, unsigned int steps, unsigned int pop_size, unsigned int sol_size);
 
     //friend std::ostream& operator<< (std::ostream& os, const SetUpParams& setup);

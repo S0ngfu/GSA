@@ -78,7 +78,7 @@ Solution& MyAlgorithm::worst_solution() const
 
 void MyAlgorithm::evolution(int iter)
 {
-	//Récupération de la meilleure fitness pour cette itération
+	//RÃ©cupÃ©ration de la meilleure fitness pour cette itÃ©ration
     evaluate();
     quickSort(0, _setup.population_size());
 

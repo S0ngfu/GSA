@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
     }
 
     srand(time(NULL));
-    SetUpParams setup = SetUpParams(10, 66666, 30, 30);
+    SetUpParams setup = SetUpParams(30, 66666, 30, 30);
     MyAlgorithm GSA(problem, setup);
     GSA.main();
 
