@@ -51,6 +51,7 @@ void Solution::initialize()
 	}
  	_mass = 0;
     _vecteuraccel.resize((unsigned long long int) _pbm.dimension(),0);
+    fitness();
 }
 
 void Solution::fitness() {

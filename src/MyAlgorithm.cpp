@@ -99,6 +99,7 @@ void MyAlgorithm::evolution(int iter)
 	//IL FAUT CORRIGER UPPER/LOWER COST JE COMPRENDS PAS, IDA TG T NUL
     evaluate();
     quickSort(0, _setup.population_size());
+
     //Meilleurs individus K
     unsigned int kbest = kBest(iter, _setup.nb_evolution_steps());
     updateMass();
@@ -120,21 +121,31 @@ void MyAlgorithm::main()
 	for(int runs=0 ; runs < _setup.independent_runs() ; runs++)
 	{
         initialize();
+		double best_fit = best_fitness(), worst_fit = worst_fitness();
 		for(int iter=0 ; iter < _setup.nb_evolution_steps() ; iter++)
 		{
 			evolution(iter);
-			std::cout << "Evolution " << iter << " : " << best_fitness() << std::endl;
+			if(best_fitness() < best_fit)
+			{
+				best_fit = best_fitness();
+				worst_fit = worst_fitness();
+			}
+			//std::cout << "Evolution " << iter << " : " << best_fitness() << std::endl;
 		}
 		evaluate();
+		if(best_fitness() < best_fit)
+		{
+			best_fit = best_fitness();
+			worst_fit = worst_fitness();
+		}
+        std::cout<<"Execution "<<runs<<" : "<<best_fit<<"\t\t"<<worst_fit<<std::endl;
 
-        std::cout<<"Execution "<<runs<<" : "<<best_fitness()<<" "<<worst_fitness()<<std::endl;
-
-		moy_best_fit += best_fitness();//meilleure fitness de la solution (me souvient plus de la formule);
-	    moy_worst_fit += worst_fitness();
+		moy_best_fit += best_fit;//meilleure fitness de la solution (me souvient plus de la formule);
+	    moy_worst_fit += worst_fit;
     }
     moy_best_fit/=_setup.independent_runs();
     moy_worst_fit/=_setup.independent_runs();
-    std::cout<<"Moyenne meilleures fitness : "<<moy_best_fit<<std::endl;
+    std::cout<<"\nMoyenne meilleures fitness : "<<moy_best_fit<<std::endl;
     std::cout<<"Moyenne pires fitness : "<<moy_worst_fit<<std::endl;
     //Affichage de la moyenne des meilleures fitness.
 }
