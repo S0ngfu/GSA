@@ -30,13 +30,7 @@ public:
     /// \param[in] sol : Solution à recopier
     Solution (const Solution& sol);
 
-    //friend std::ostream& operator<< (std::ostream& os, const Solution& sol);
-    //friend std::istream& operator>> (std::istream& is, Solution& sol);
-
     const Problem& pbm() const;
-
-    /*bool operator== (const Solution& sol) const;
-    bool operator!= (const Solution& sol) const;*/
 
     ///
     /// \brief Initialise la solution

@@ -17,23 +17,6 @@ MyAlgorithm::~MyAlgorithm()
 		delete _solutions[i];
 }
 
-/* ToFix
-std::ostream& MyAlgorithm::operator<< (std::ostream& os, const MyAlgorithm& myAlgo) {
-	//toDo
-	return os;
-}
-
-std::istream& MyAlgorithm::operator>> (std::istream& is, MyAlgorithm& myAlgo) {
-	//toDo
-	return is;
-}
-
-MyAlgorithm& MyAlgorithm::operator= (const MyAlgorithm& myAlgo) {
-	//toDo
-	return myAlgo;
-}
-*/
-
 const SetUpParams& MyAlgorithm::setup() const 
 {
 	return _setup;
@@ -129,7 +112,6 @@ void MyAlgorithm::main()
 				best_fit = best_fitness();
 				worst_fit = worst_fitness();
 			}
-			//std::cout << "Evolution " << iter << " : " << best_fitness() << std::endl;
 		}
 		evaluate();
 		if(best_fitness() < best_fit)

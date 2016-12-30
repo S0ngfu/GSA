@@ -15,32 +15,9 @@ Solution::Solution(const Solution& sol): _pbm{sol._pbm},
     _vecteuraccel=sol._vecteuraccel;
 }
 
-/*
-std::ostream& Solution::operator<< (std::ostream& os, const Solution& sol) {
-	//toDo
-
-	return os;
-}
-    
-std::istream& Solution::operator>> (std::istream& is, Solution& sol) {
-	//toDo
-
-	return is;
-}
-*/
-
 const Problem& Solution::pbm() const {
 	return _pbm;
 }
-
-/*bool operator== (const Solution& sol) const {
-	//toDo
-
-}
-
-bool operator!= (const Solution& sol) const {
-	//toDo
-}*/
 
 void Solution::initialize()
 {
