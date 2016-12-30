@@ -94,13 +94,12 @@ public:
     /// \param[in] position : Indice du tableau
     void set_vecteuraccel(const Solution& sol, double g);
 
-    // ToDo : doc
     ///
-    /// \brief
+    /// \brief Calcule la force de gravitation d'une composante par rapport à un individu
     /// \param sol
     /// \param i
     /// \param g
-    /// \return
+    /// \return Force gravitationnelle
     double gravitationalValue(const Solution& sol, int i, double g);
 private:
     std::vector<double> d_coord;
