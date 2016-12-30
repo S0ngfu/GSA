@@ -123,17 +123,19 @@ public:
 	/// \brief Fait une évolution
 	/// \param[in] iter : Indice de l'évolution actuelle de l'exécution
 	void evolution(int iter);
-	
+
 	///
-	/// \brief Retourne la pire solution
+	/// \brief Retourne la constante gravitationnelle
 	/// \param[in] iter : Indice de l'évolution actuelle de l'exécution
 	/// \param[in] max_iter : Indice de la dernière évolution de l'exécution
+	/// \return
 	double gUpdate(int iter, int max_iter) const;
-	
+
 	///
 	/// \brief Retourne les K meilleures solutions qui vont affecter les autres
 	/// \param[in] iter : Indice de l'évolution actuelle de l'exécution
-	/// \param[in] max_iter : Indice de la dernière évolution de l'exécution
+	/// \param[in] max_tier : Indice de la dernière évolution de l'exécution
+	/// \return Le nombre de solutions qui affecteront les autres
 	unsigned int kBest(int iter, int max_tier) const;
 
 	///

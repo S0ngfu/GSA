@@ -30,8 +30,6 @@ public:
     /// \param[in] sol : Solution à recopier
     Solution (const Solution& sol);
 
-    const Problem& pbm() const;
-
     ///
     /// \brief Initialise la solution
     void initialize();
@@ -83,16 +81,16 @@ public:
     void moveSolution(double duration);
 
     ///
-    /// \brief Permet de modifier le vecteur d'accélération
-    /// \param[in] accel : Valeur de l'accélération
-    /// \param[in] position : Indice du tableau
+    /// \brief Permet de mettre à jour le vecteur d'accélération
+    /// \param[in] sol : Solution avec laquelle elle calcule le vecteur d'accélération
+    /// \param[in] g : Constante gravitationnelle
     void set_vecteuraccel(const Solution& sol, double g);
 
     ///
     /// \brief Calcule la force de gravitation d'une composante par rapport à un individu
-    /// \param[in] sol
-    /// \param[in] i
-    /// \param[in] g
+    /// \param[in] sol : Solution avec laquelle elle calcule la force gravitationnelle
+    /// \param[in] i : Indice
+    /// \param[in] g : Constante gravitationnelle
     /// \return Force gravitationnelle
     double gravitationalValue(const Solution& sol, int i, double g);
 private:
