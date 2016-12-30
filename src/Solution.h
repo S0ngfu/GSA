@@ -61,7 +61,7 @@ public:
     /// \return Tableau de coordonnées
     std::vector<double>& get_coord() const;
 
-    double Solution::position(const int index);
+    double position(const int index);
 
     ///
     /// \brief Calcule la distance euclidienne entre 2 solutions
@@ -92,7 +92,7 @@ public:
     /// \brief Permet de modifier le vecteur d'accélération
     /// \param[in] accel : Valeur de l'accélération
     /// \param[in] position : Indice du tableau
-    void set_vecteuraccel(double accel, int position);
+    void set_vecteuraccel(const Solution& sol, double g);
 
     // ToDo : doc
     ///

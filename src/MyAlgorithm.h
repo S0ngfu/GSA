@@ -92,13 +92,13 @@ public:
 	void quickSort(int gauche, int droite);
 	int partition(int gauche, int droite);
 
-    void updateaccel(double g, unsigned int kbest);
+    void updateAccel(int iter, unsigned int kbest);
 	double best_fitness() const;
 	double worst_fitness() const;
 	Solution& best_solution() const;
 	Solution& worst_solution() const;
 	void evolution(int iter); /*makes an evolution step*/
-	double g_update(int iter, int max_iter) const;
+	double gUpdate(int iter, int max_iter) const;
 	unsigned int kBest(int iter, int max_tier) const;
 
 

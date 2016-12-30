@@ -96,21 +96,25 @@ void Solution::set_mass(double mass)
 
 void Solution::normeVecteur()
 {
-    double temp = pow(_vecteuraccel[0], 2);
-    for(int i = 1; i < _pbm.dimension(); i++)
+    double temp = 0;
+    for(int i = 0; i < _vecteuraccel.size(); i++)
         temp += pow(_vecteuraccel[i], 2);
     if(temp != 0)
     {
     	temp = sqrt(temp);
-    	for(int i = 0; i < _pbm.dimension(); i++)
+    	for(int i = 0; i < _vecteuraccel.size(); i++)
         	_vecteuraccel[i] /= temp;
     }
 }
 
-void Solution::set_vecteuraccel(double accel, int position)
+void Solution::set_vecteuraccel(const Solution& sol, double g)
 {
 	if( _mass != 0)
-        _vecteuraccel[position] += static_cast <double> (rand()) * static_cast <double> (RAND_MAX) * accel / _mass;
+        for(int i = 0 ; i < d_coord.size() ; i++)
+        {
+            double accel = gravitationalValue(sol, i, g);
+            _vecteuraccel[i] += static_cast <double> (rand()) * static_cast <double> (RAND_MAX) * accel / _mass;
+        }
 }
 
 void Solution::moveSolution(double duration)

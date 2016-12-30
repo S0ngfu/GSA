@@ -101,11 +101,9 @@ void MyAlgorithm::evolution(int iter)
     quickSort(0, _setup.population_size());
     //Meilleurs individus K
     unsigned int kbest = kBest(iter, _setup.nb_evolution_steps());
-	//Constante G
-	double g = g_update(iter, _setup.nb_evolution_steps());
     updateMass();
     reduceMass();
-    updateaccel(g, kbest);    	
+    updateAccel(iter, kbest);
     updatePosition();
 
     // VOIR https://www.researchgate.net/profile/Hossein_Nezamabadi-pour/publication/222853813_GSA_a_Gravitational_Search_Algorithm/links/0912f50645d730966a000000.pdf
@@ -141,22 +139,24 @@ void MyAlgorithm::main()
     //Affichage de la moyenne des meilleures fitness.
 }
 
-double MyAlgorithm::g_update(int iter, int max_iter) const 
+double MyAlgorithm::gUpdate(int iter, int max_iter) const
 {
 	const double g = 10;
     int alpha = 20;
 	return (g * exp(-alpha * iter / max_iter));
 }
 
-void MyAlgorithm::updateaccel(double g, unsigned int kbest)
+void MyAlgorithm::updateAccel(int iter, unsigned int kbest)
 {
+    //Constante G
+    double g = gUpdate(iter, _setup.nb_evolution_steps());
+
     for(int i = 0; i < _setup.population_size(); i++)
     {
         for (int j = 0; j < kbest; j++)
         	if(i != j)
-                for(int k = 0; k < _setup.solution_size(); k++)
-                    _solutions[i]->set_vecteuraccel(_solutions[i]->gravitationalValue(*_solutions[j], k, g), k);
-    	solutions()[i]->normeVecteur();
+                _solutions[i]->set_vecteuraccel(*_solutions[j], g);
+    	_solutions[i]->normeVecteur();
 	}
 }
 
