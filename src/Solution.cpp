@@ -15,10 +15,6 @@ Solution::Solution(const Solution& sol): _pbm{sol._pbm},
     _vecteuraccel=sol._vecteuraccel;
 }
 
-const Problem& Solution::pbm() const {
-	return _pbm;
-}
-
 void Solution::initialize()
 {
 	d_coord.resize((unsigned long long int) _pbm.dimension());
