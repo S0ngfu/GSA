@@ -46,7 +46,6 @@ public:
     ///
     ///\brief Permet de changer de fonction de benchmark
     void switchBenchmark();
-    //ToDo Fonction pour changer la dimension ?
 private:
     int _dimension;
     Fonction _fonction;
