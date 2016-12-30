@@ -36,6 +36,7 @@ public:
     /// \brief Renvoi la dimension du problème
     /// \return dimension
     int dimension() const;
+    
     double LowerLimit, UpperLimit;
 
     ///

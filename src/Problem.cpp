@@ -23,27 +23,39 @@ void Problem::switchBenchmark() {
         std::cin>>input;
     } while(input<1 && input>6);
 
-    switch(input) //ToDo change parameters for each bench
+    switch(input)
     {
         default:
             break;
         case 1:
             _fonction=Rosenbrock;
+            LowerLimit = -5;
+			UpperLimit = 10;
             break;
         case 2:
             _fonction=Rastrigin;
+            LowerLimit = -5.12;
+			UpperLimit = 5.12;
             break;
         case 3:
             _fonction=Ackley;
+            LowerLimit = -32.768;
+			UpperLimit = 32.768;
             break;
         case 4:
             _fonction=Schwefel;
+            LowerLimit = -500;
+			UpperLimit = 500;
             break;
         case 5:
             _fonction=Schaffer;
+            LowerLimit = -100;
+			UpperLimit = 100;
             break;
         case 6:
             _fonction=Weierstrass;
+            LowerLimit = -2;
+			UpperLimit = 2;
             break;
     }
 }
