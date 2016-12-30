@@ -31,7 +31,7 @@ double Ackley(const std::vector<double>& coord)
 		sum1 += pow(coord[i], 2);
 		sum2 += cos(2 * M_PI * coord[i]);
 	}
-	sum = -20 * exp(-0.2 * sqrt((1 / 30) * sum1)) - exp((1 / 30) * sum2) + 20 + exp(1);
+	sum = -20.0 * exp(-0.2 * sqrt(sum1 / 30.0)) - exp(sum2 / 30.0) + 20.0 + exp(1.0);
 	return sum;
 }
 
