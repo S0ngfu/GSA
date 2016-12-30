@@ -78,7 +78,6 @@ Solution& MyAlgorithm::worst_solution() const
 
 void MyAlgorithm::evolution(int iter)
 {
-	//Récupération de la meilleure fitness pour cette itération
     evaluate();
     quickSort(0, _setup.population_size());
 
@@ -88,18 +87,13 @@ void MyAlgorithm::evolution(int iter)
     reduceMass();
     updateAccel(iter, kbest);
     updatePosition();
-
-    // VOIR https://www.researchgate.net/profile/Hossein_Nezamabadi-pour/publication/222853813_GSA_a_Gravitational_Search_Algorithm/links/0912f50645d730966a000000.pdf
-    // PAGE 6
-
-	//https://fr.mathworks.com/matlabcentral/fileexchange/27756-gravitational-search-algorithm--gsa-/content/Gravitational%20Search%20algorithm/GSA.m
 }
 
 void MyAlgorithm::main() 
 {
     double moy_best_fit = 0.0;
     double moy_worst_fit = 0.0;
-    std::cout << "              best         worst" << std::endl;
+    std::cout << "\t\tbest\tworst" << std::endl;
 	for(int runs = 0; runs < _setup.independent_runs(); runs++)
 	{
         initialize();
@@ -121,14 +115,15 @@ void MyAlgorithm::main()
 		}
         std::cout<<"Execution "<<runs+1<<" : "<<best_fit<<"\t"<<worst_fit<<std::endl;
 
-		moy_best_fit += best_fit;//meilleure fitness de la solution (me souvient plus de la formule);
+		moy_best_fit += best_fit;
 	    moy_worst_fit += worst_fit;
     }
     moy_best_fit /= _setup.independent_runs();
     moy_worst_fit /= _setup.independent_runs();
+
+	//Affichage de la moyenne des meilleures fitness.
     std::cout << "\nMoyenne meilleures fitness : " << moy_best_fit << std::endl;
     std::cout << "Moyenne pires fitness : " << moy_worst_fit << std::endl;
-    //Affichage de la moyenne des meilleures fitness.
 }
 
 double MyAlgorithm::gUpdate(int iter, int max_iter) const
@@ -140,7 +135,6 @@ double MyAlgorithm::gUpdate(int iter, int max_iter) const
 
 void MyAlgorithm::updateAccel(int iter, unsigned int kbest)
 {
-    //Constante G
     double g = gUpdate(iter, _setup.nb_evolution_steps());
 
     for(int i = 0; i < _setup.population_size(); i++)
