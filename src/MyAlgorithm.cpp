@@ -155,16 +155,9 @@ void MyAlgorithm::updateaccel(double g, unsigned int kbest)
         for (int j = 0; j < kbest; j++)
         	if(i != j)
                 for(int k = 0; k < _setup.solution_size(); k++)
-                    _solutions[i]->set_vecteuraccel(gravitationalValue(*_solutions[i], *_solutions[j], k, g), k);
+                    _solutions[i]->set_vecteuraccel(_solutions[i]->gravitationalValue(*_solutions[j], k, g), k);
     	solutions()[i]->normeVecteur();
 	}
-}
-
-double MyAlgorithm::gravitationalValue(const Solution &sol1, const Solution &sol2, int i, double g)
-{
-    double random = (double) rand() / (double) RAND_MAX;
-    double temp = random * g * sol1.get_mass() * sol2.get_mass() * (sol2.get_coord()[i] - sol1.get_coord()[i]) / sol1.distEucl(sol2);
-    return temp;
 }
 
 void MyAlgorithm::updateMass()

@@ -4,6 +4,7 @@
 ///
 /// \file MyAlgorithm.h
 /// \brief Implémentation du GSA (Gravitational Search Algorithm)
+
 #include "Solution.h"
 #include "SetUpParams.h"
 
@@ -90,8 +91,7 @@ public:
 	/// \param droite
 	void quickSort(int gauche, int droite);
 	int partition(int gauche, int droite);
-	
-    double gravitationalValue(const Solution &sol1, const Solution &sol2, int i, double g);
+
     void updateaccel(double g, unsigned int kbest);
 	double best_fitness() const;
 	double worst_fitness() const;

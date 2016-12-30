@@ -61,6 +61,8 @@ public:
     /// \return Tableau de coordonnées
     std::vector<double>& get_coord() const;
 
+    double Solution::position(const int index);
+
     ///
     /// \brief Calcule la distance euclidienne entre 2 solutions
     /// \param[in] sol : Solution avec laquelle elle calcule la distance
@@ -92,6 +94,14 @@ public:
     /// \param[in] position : Indice du tableau
     void set_vecteuraccel(double accel, int position);
 
+    // ToDo : doc
+    ///
+    /// \brief
+    /// \param sol
+    /// \param i
+    /// \param g
+    /// \return
+    double gravitationalValue(const Solution& sol, int i, double g);
 private:
     std::vector<double> d_coord;
     double _current_fitness;

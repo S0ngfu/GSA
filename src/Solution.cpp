@@ -70,6 +70,11 @@ std::vector<double>& Solution::get_coord() const
 	return (std::vector<double>&) d_coord;
 }
 
+
+double Solution::position(const int index) {
+    return d_coord[index];
+}
+
 double Solution::distEucl(const Solution& sol) const
 {
 	double distance = 0;
@@ -112,5 +117,11 @@ void Solution::moveSolution(double duration)
 {
     for(int i = 0; i < _pbm.dimension(); i++)
         d_coord[i] += _vecteuraccel[i] * pow(duration, 2);
+}
+
+double Solution::gravitationalValue(const Solution &sol, int i, double g) {
+    double random = (double) rand() / (double) RAND_MAX;
+    double temp = random * g * _mass * sol._mass * (sol.d_coord[i] - d_coord[i]) / distEucl(sol);
+    return temp;
 }
 
