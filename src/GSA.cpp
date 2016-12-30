@@ -32,12 +32,6 @@ int main(int argc, char *argv[])
         choice=menu();
     }
 
-/*ToDo ? Pouvoir modifier les paramètres du programme sans toucher au code
- * Il faudrait donc pouvoir mettre en paramètre du constructeur un lien
- * vers un fichier. Dans le cas ou se fichier n'est pas sous le bon format,
- * ne contient pas les paramètres sous la bonne forme, il appel
- * le constructeur par défaut*/
-
     srand(time(NULL));
     SetUpParams setup = SetUpParams(10, 66666, 30, 30);
     MyAlgorithm GSA(problem, setup);
