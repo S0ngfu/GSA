@@ -166,7 +166,7 @@ void MyAlgorithm::reduceMass()
 void MyAlgorithm::updatePosition()
 {
     for(int i = 0; i < _setup.population_size(); i++)
-        _solutions[i]->moveSolution(0.5);
+        _solutions[i]->moveSolution(1);
 }
 
 void MyAlgorithm::quickSort(int gauche, int droite)
