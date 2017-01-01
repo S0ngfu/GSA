@@ -34,6 +34,8 @@ public:
     /// \brief Initialise la solution
     void initialize();
 
+    const Problem& pbm() const;
+
     ///
     /// \brief Calcule la fitness de la solution
     void fitness();

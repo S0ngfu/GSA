@@ -27,6 +27,10 @@ void Solution::initialize()
     fitness();
 }
 
+const Problem& Solution::pbm() const {
+	return _pbm;
+}
+
 void Solution::fitness() {
 	_current_fitness=(_pbm.function())(d_coord);
 }
@@ -43,7 +47,6 @@ std::vector<double>& Solution::get_coord() const
 {
 	return (std::vector<double>&) d_coord;
 }
-
 
 double Solution::position(const int index) {
     return d_coord[index];

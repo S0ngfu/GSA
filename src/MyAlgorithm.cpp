@@ -1,7 +1,9 @@
 #include "MyAlgorithm.h"
 
 MyAlgorithm::MyAlgorithm(const Problem &pbm, const SetUpParams &setup):
-		_setup{setup}
+		_setup{setup},
+		_mutationProbability{0.1},
+		_crossoverProbability{0.5}
 {
 	_solutions.resize(_setup.population_size());
 	for (int i = 0; i < _setup.population_size(); ++i) {
@@ -83,6 +85,7 @@ void MyAlgorithm::evolution(int iter)
 
     //Meilleurs individus K
     unsigned int kbest = kBest(iter, _setup.nb_evolution_steps());
+	crossoverAndMutation(kbest);
     updateMass();
     reduceMass();
     updateAccel(iter, kbest);
@@ -198,4 +201,26 @@ unsigned int MyAlgorithm::kBest(int iter, int max_iter) const
 {
 	unsigned int k = _setup.population_size() - 5;
 	return (unsigned int) (trunc((k * (max_iter - iter + 1) / (static_cast <double>(max_iter)) + 5)));
+}
+
+void MyAlgorithm::crossoverAndMutation(unsigned int kbest) {
+	for(int i = kbest ; i < _solutions.size() ; i++)
+	{
+		int random = rand() % kbest;
+
+		for(int j = 0 ; j < _setup.solution_size() ; j++)
+		{
+			if((double) rand() / (double) RAND_MAX < _crossoverProbability)
+			{
+				//double temp = _solutions[random]->position(j);
+				std::swap(_solutions[random]->get_coord()[j],_solutions[i]->get_coord()[j]);
+				//_solutions[i]->get_coord()[j] = _solutions[random]->get_coord()[j];
+			}
+			if((double) rand() / (double) RAND_MAX < _mutationProbability)
+			{
+				Problem prob = _solutions[i]->pbm();
+				_solutions[i]->get_coord()[j] = (double) rand() / (double) RAND_MAX * (prob.UpperLimit - prob.LowerLimit) + prob.LowerLimit;;
+			}
+		}
+	}
 }

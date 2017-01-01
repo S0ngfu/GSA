@@ -22,6 +22,8 @@ private:
 	std::vector<Solution*> _solutions;     // individuals in population
 	const SetUpParams& _setup;
 	unsigned int _upper_cost,_lower_cost; // lower and upper fitness of individuals in population
+	const double _mutationProbability;
+	const double _crossoverProbability;
 
 public:
 
@@ -141,6 +143,8 @@ public:
 	///
 	/// \brief Lance l'algorithme
 	void main();
+
+	void crossoverAndMutation(unsigned int kbest);
 };
 
 #endif

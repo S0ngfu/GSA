@@ -27,13 +27,13 @@ int main(int argc, char *argv[])
                 problem.switchBenchmark();
                 break;
             case 3:
-                std::exit;
+                return 1;
         }
         choice=menu();
     }
 
     srand(time(NULL));
-    SetUpParams setup = SetUpParams(30, 66666, 30, 30);
+    SetUpParams setup = SetUpParams(30, 20000, 30, 30);
     MyAlgorithm GSA(problem, setup);
     GSA.main();
 
