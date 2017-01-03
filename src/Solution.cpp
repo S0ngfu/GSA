@@ -106,3 +106,22 @@ double Solution::gravitationalValue(const Solution &sol, int i, double g) {
     return temp;
 }
 
+void Solution::crossoverAndMutation(Solution &sol, double crossoverProbability, double mutationProbability) {
+	for(int j = 0 ; j < size() ; j++)
+	{
+		if((double) rand() / (double) RAND_MAX < crossoverProbability)
+		{
+			std::swap(d_coord[j],sol.d_coord[j]);
+		}
+		if((double) rand() / (double) RAND_MAX < mutationProbability)
+		{
+			double middle = (sol._pbm.UpperLimit + sol._pbm.LowerLimit) /2;
+			if(sol.d_coord[j] < middle)
+			{
+				sol.d_coord[j] = middle +sol.d_coord[j];
+			} else {
+				sol.d_coord[j] = middle - sol.d_coord[j];
+			}
+		}
+	}
+}

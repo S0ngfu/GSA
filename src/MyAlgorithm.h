@@ -144,7 +144,7 @@ public:
 	/// \brief Lance l'algorithme
 	void main();
 
-	void crossoverAndMutation(unsigned int kbest);
+	void crossoverAndMutation();
 };
 
 #endif

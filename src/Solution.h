@@ -95,6 +95,8 @@ public:
     /// \param[in] g : Constante gravitationnelle
     /// \return Force gravitationnelle
     double gravitationalValue(const Solution& sol, int i, double g);
+
+    void crossoverAndMutation(Solution& sol, double crossoverProbability, double mutationProbability);
 private:
     std::vector<double> d_coord;
     double _current_fitness;
