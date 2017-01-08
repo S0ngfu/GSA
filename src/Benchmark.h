@@ -6,6 +6,8 @@
 /// \brief Fonctions permettant l'évaluation d'une solution
 
 
+//prout
+
 ///
 /// \brief Fonction de Rosenbrock
 /// \image html rosenbrock.png
